@@ -502,7 +502,7 @@ if selected == "HRV Analysis":
         xaxis=dict(showline=True, showgrid=True),
         yaxis=dict(showline=True, showgrid=True)
         )
-         st.plotly_chart(fig)
+        st.plotly_chart(fig)
         #  windowing Hamming
         fig = go.Figure(data=go.Scatter(x=n_subset1, y=bpm_rr_baseline_windowed1, mode='lines'))
         fig.update_layout(
