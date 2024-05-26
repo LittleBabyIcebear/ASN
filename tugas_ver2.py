@@ -580,41 +580,74 @@ if selected == "HRV Analysis":
     if sub_selected == 'Time Domain Analysis':
         new_title = '<p style="font-family:Georgia; color:black; font-size: 25px; text-align: center;">Time Domain Analysis</p>'
         st.markdown(new_title, unsafe_allow_html=True)
-        optimizer_options1 = ['','SDNN', 'RMSSD', "pNN50", "SDSD"]
-        selected_optimizer1 = st.selectbox('Time-domain analysis', optimizer_options1)
+        selected2 = option_menu(None, ["Result", "Information"], 
+            menu_icon="cast", default_index=0, orientation="horizontal")
+        if selected2 == "Result":
+            new_title = '<p style="font-family:Georgia; color: black; font-size: 18px;">Calculation of HR </p>'
+            st.markdown(new_title, unsafe_allow_html=True)
 
-        if selected_optimizer1 == 'SDNN':
-            st.write(SDNN)
-        elif selected_optimizer1 == 'RMSSD':
-            st.write(RMSSD)
-        elif selected_optimizer1 == 'pNN50':
-            st.write(pNN50)
-        elif selected_optimizer1 == 'SDSD':
-            st.write(SDSD)
+            new_title = '<p style="font-family:Georgia; color: black; font-size: 18px;">Statistical measures</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            data = {
+            "Statistical measures": ["SDNN", "RMSSD", "pNN50","SDSD"],
+            "Hasil": [SDNN,RMSSD, pNN50, SDSD]
+            }
+            df = pd.DataFrame(data)
 
-        fig_Tachogram = go.Figure(data=go.Scatter(x=n, y=bpm_rr, mode='lines'))
-        fig_Tachogram.update_layout(
-            title="TACHOGRAM",
-            xaxis_title="n",
-            yaxis_title="BPM",
-            xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True)
-        )
-        st.plotly_chart(fig_Tachogram)
+        # Buat tabel menggunakan Plotly
+            fig = go.Figure(data=[go.Table(
+            columnwidth=[80, 20],  # Set column width
+            header=dict(values=list(df.columns),
+                fill_color='red',  # Ubah warna header menjadi merah
+                align='left',
+                line_color='darkslategray',
+                height=30),  # Set header height
+            cells=dict(values=[df["Statistical measures"], df["Hasil"]],
+               fill_color='white',  # Ubah warna sel menjadi merah
+               align='left',
+               line_color='darkslategray',
+               height=25,  # Set cell height
+               font_size=12,  # Set font size
+               ),
+            )])
 
-        fig_histogram = go.Figure(data=go.Histogram(x=bpm_rr, nbinsx=ptp))
+        # Set layout to adjust the table size
+            fig.update_layout(
+             width=800,
+            height=200,
+            margin=dict(l=10, r=10, t=10, b=10)
+            )
 
-        fig_histogram.update_layout(
-            title="Histogram Interval RR",
-            xaxis_title="Interval RR",
-            yaxis_title="Banyak Data",
-            xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True),
-            bargap=0.2,  # Optional: Adjusts the gap between bars
-            bargroupgap=0.1,  # Optional: Adjusts the gap between groups
-        )
+        # Tampilkan tabel
+            st.plotly_chart(fig)
 
-        st.plotly_chart(fig_histogram)
+            fig_Tachogram = go.Figure(data=go.Scatter(x=n, y=bpm_rr, mode='lines'))
+            fig_Tachogram.update_layout(
+              title="TACHOGRAM",
+              xaxis_title="n",
+              yaxis_title="BPM",
+              xaxis=dict(showline=True, showgrid=True),
+              yaxis=dict(showline=True, showgrid=True)
+              )
+            st.plotly_chart(fig_Tachogram)
+
+            fig_histogram = go.Figure(data=go.Histogram(x=bpm_rr, nbinsx=ptp))
+
+            fig_histogram.update_layout(
+              title="Histogram Interval RR",
+              xaxis_title="Interval RR",
+              yaxis_title="Banyak Data",
+              xaxis=dict(showline=True, showgrid=True),
+              yaxis=dict(showline=True, showgrid=True),
+              bargap=0.2, # Optional: Adjusts the gap between bars
+              bargroupgap=0.1, # Optional: Adjusts the gap between groups
+              )
+            st.plotly_chart(fig_histogram)
+        if selected2 == "Informationt":
+            fig_histogram.update_layout(
+
+   
+            st.plotly_chart(fig_histogram)
     elif sub_selected == 'Frequency Domain analysis':
         
         
