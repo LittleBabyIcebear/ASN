@@ -466,8 +466,8 @@ if selected == "HRV Analysis":
         xaxis=dict(showline=True, showgrid=True),
         yaxis=dict(showline=True, showgrid=True)
         )
-        fig1.show()
-
+        st.plotly_chart(fig1)
+        
        # Membuat grafik FFT
         fig_fft = go.Figure(data=go.Scatter(x=fft_freq_half, y=np.abs(fft_result_half),mode="lines"))
         fig_fft.update_layout(
@@ -477,7 +477,7 @@ if selected == "HRV Analysis":
         xaxis=dict(showline=True, showgrid=True),
         yaxis=dict(showline=True, showgrid=True)
         )
-        fig_fft.show()
+        st.plotly_chart(fig_fft)
 
 
 
