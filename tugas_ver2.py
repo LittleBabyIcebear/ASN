@@ -309,33 +309,7 @@ LF_norm = LF / (total_power - VLF)
 HF_norm = HF / (total_power - VLF)
 LF_HF = LF / HF
 
-def determine_category(LF_norm, HF_norm, LF_HF):
-    if LF_norm < 0.2 and HF_norm < 0.2:
-        return 1  # Low - Low
-    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm < 0.2:
-        return 2  # Normal - Low
-    elif LF_norm > 0.6 and HF_norm < 0.2:
-        return 3  # High - Low
-    elif LF_norm < 0.2 and HF_norm >= 0.2 and HF_norm <= 0.6:
-        return 4  # Low - Normal
-    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
-        return 5  # Normal - Normal
-    elif LF_norm > 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
-        return 6  # High - Normal
-    elif LF_norm < 0.2 and HF_norm > 0.6:
-        return 7  # Low - High
-    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm > 0.6:
-        return 8  # Normal - High
-    elif LF_norm > 0.6 and HF_norm > 0.6:
-        return 9  # High - High
-    else:
-        return 0  # Undefine
-        
-data = [
-    [7, 8, 9],
-    [4, 5, 6],
-    [1, 2, 3]
-]
+
 
   
 
@@ -919,44 +893,76 @@ if selected == "HRV Analysis":
         yaxis_title='Nilai'
         )
         st.plotly_chart(fig)
-        
-        # Create the heatmap
-        fig, ax = plt.subplots(figsize=(10, 8))
-        sns.heatmap(data, annot=True, fmt="d", cmap="coolwarm", cbar=False, linewidths=0.5, ax=ax)
 
-# Define coordinates for categories
-        coordinates = {
-            1: (2, 0),
-            2: (2, 1),
-            3: (2, 2),
-            4: (1, 0),
-            5: (1, 1),
-            6: (1, 2),
-            7: (0, 0),
-            8: (0, 1),
-            9: (0, 2)
-}
+        def determine_category(LF_norm, HF_norm, LF_HF):
+            if LF_norm < 0.2 and HF_norm < 0.2:
+                return 1  # Low - Low
+            elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm < 0.2:
+                return 2  # Normal - Low
+            elif LF_norm > 0.6 and HF_norm < 0.2:
+                return 3  # High - Low
+            elif LF_norm < 0.2 and HF_norm >= 0.2 and HF_norm <= 0.6:
+                return 4  # Low - Normal
+            elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
+                return 5  # Normal - Normal
+            elif LF_norm > 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
+                return 6  # High - Normal
+            elif LF_norm < 0.2 and HF_norm > 0.6:
+                return 7  # Low - High
+            elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm > 0.6:
+                return 8  # Normal - High
+            elif LF_norm > 0.6 and HF_norm > 0.6:
+                return 9  # High - High
+            else:
+                return 0  # Undefined
 
-# Determine the category based on some logic
-        category = determine_category(LF_norm, HF_norm, LF_HF)
-        print("Category:", category)
-        coord = coordinates.get(category, None)
+        def plot_heatmap(category):
+            data = [
+                [7, 8, 9],
+                [4, 5, 6],
+                [1, 2, 3]
+            ]
 
-# Mark the category on the heatmap
-        if coord:
-          ax.plot(coord[1] + 0.5, coord[0] + 0.5, 'ko')  # 'ko' means black circle
+            plt.figure(figsize=(10, 8))
+            ax = sns.heatmap(data, annot=True, fmt="d", cmap="coolwarm", cbar=False, linewidths=.5)
 
-# Set additional plot details
-        ax.set_title("Autonomic Balance Diagram")
-        ax.set_xlabel("Sympathetic Level")
-        ax.set_ylabel("Parasympathetic Level")
-        ax.set_xticks([0.5, 1.5, 2.5])
-        ax.set_xticklabels(["Low", "Normal", "High"])
-        ax.set_yticks([0.5, 1.5, 2.5])
-        ax.set_yticklabels(["High", "Normal", "Low"])
+            coordinates = {
+                1: (2, 0),
+                2: (2, 1),
+                3: (2, 2),
+                4: (1, 0),
+                5: (1, 1),
+                6: (1, 2),
+                7: (0, 0),
+                8: (0, 1),
+                9: (0, 2)
+            }
 
-# Display the plot in Streamlit
-        st.pyplot(fig)
+            coord = coordinates.get(category, None)
+
+            # Mark the category on the heatmap
+            if coord:
+                ax.plot(coord[1] + 0.5, coord[0] + 0.5, 'ko')  
+
+            plt.title("Autonomic Balance Diagram")
+            plt.xlabel("Sympathetic Level")
+            plt.ylabel("Parasympathetic Level")
+            plt.xticks([0.5, 1.5, 2.5], ["Low", "Normal", "High"])
+            plt.yticks([0.5, 1.5, 2.5], ["High", "Normal", "Low"])
+            st.pyplot(plt)
+
+# Streamlit app
+            st.title("Autonomic Balance Diagram")
+
+
+
+# Determine category
+            category = determine_category(LF_norm, HF_norm, LF_HF)
+            st.write("Category:", category)
+
+# Plot heatmap
+            plot_heatmap(category)
+
         
     
 
