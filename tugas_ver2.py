@@ -466,8 +466,6 @@ if selected == "Calculation":
     selected2 = option_menu(None, ["Result", "Information"], 
             menu_icon="cast", default_index=0, orientation="horizontal")
     if selected2 == "Result":
-        new_title = '<p style="font-family:Georgia; color: black; font-size: 18px;">Calculation of HR </p>'
-        st.markdown(new_title, unsafe_allow_html=True)
         data = {
         "Calculation of HR": ["NUMBERS OF R TO R CALCULATIONS", "CALCULATION OF THE AMOUNT OF R", "BPM CALCULATIONS"],
         "Hasil": [ptp, j, rata]
