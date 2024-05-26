@@ -941,12 +941,23 @@ if selected == "HRV Analysis":
         yaxis_title='Nilai'
         )
         
-        plt.title("Autonomic Balance Diagram")
-        plt.xlabel("Sympathetic Level")
-        plt.ylabel("Parasympathetic Level")
-        plt.xticks([0.5, 1.5, 2.5], ["Low", "Normal", "High"])
-        plt.yticks([0.5, 1.5, 2.5], ["High", "Normal", "Low"])
-        # Tampilkan plot Matplotlib di aplikasi Streamlit
+     # Create a figure and axis
+        fig, ax = plt.subplots()
+
+# Plot your data here (assuming you have data to plot)
+
+# Set the title and labels
+        ax.set_title("Autonomic Balance Diagram")
+        ax.set_xlabel("Sympathetic Level")
+        ax.set_ylabel("Parasympathetic Level")
+
+# Set custom ticks for x and y axes
+        ax.set_xticks([0.5, 1.5, 2.5])
+        ax.set_xticklabels(["Low", "Normal", "High"])
+        ax.set_yticks([0.5, 1.5, 2.5])
+        ax.set_yticklabels(["High", "Normal", "Low"])
+
+# Display the plot in Streamlit
         st.pyplot(fig)
 
 
