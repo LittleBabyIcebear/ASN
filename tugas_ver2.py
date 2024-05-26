@@ -337,29 +337,7 @@ data = [
     [1, 2, 3]
 ]
 
-# Buat heatmap
-plt.figure(figsize=(10, 8))
-ax = sns.heatmap(data, annot=True, fmt="d", cmap="coolwarm", cbar=False, linewidths=.5)
-
-coordinates = {
-    1: (2, 0),
-    2: (2, 1),
-    3: (2, 2),
-    4: (1, 0),
-    5: (1, 1),
-    6: (1, 2),
-    7: (0, 0),
-    8: (0, 1),
-    9: (0, 2)
-}
-
-category = determine_category(LF_norm, HF_norm, LF_HF)
-print("Category:", category)
-coord = coordinates.get(category, None)
-
-# Tandai kategori pada heatmap
-if coord:
-    ax.plot(coord[1] + 0.5, coord[0] + 0.5, 'ko')  
+  
 
 
 
@@ -940,18 +918,38 @@ if selected == "HRV Analysis":
         xaxis_title='Kategori',
         yaxis_title='Nilai'
         )
+        st.plotly_chart(fig)
         
-     # Create a figure and axis
-        fig, ax = plt.subplots()
+        # Create the heatmap
+        fig, ax = plt.subplots(figsize=(10, 8))
+        sns.heatmap(data, annot=True, fmt="d", cmap="coolwarm", cbar=False, linewidths=0.5, ax=ax)
 
-# Plot your data here (assuming you have data to plot)
+# Define coordinates for categories
+        coordinates = {
+            1: (2, 0),
+            2: (2, 1),
+            3: (2, 2),
+            4: (1, 0),
+            5: (1, 1),
+            6: (1, 2),
+            7: (0, 0),
+            8: (0, 1),
+            9: (0, 2)
+}
 
-# Set the title and labels
+# Determine the category based on some logic
+        category = determine_category(LF_norm, HF_norm, LF_HF)
+        print("Category:", category)
+        coord = coordinates.get(category, None)
+
+# Mark the category on the heatmap
+        if coord:
+        ax.plot(coord[1] + 0.5, coord[0] + 0.5, 'ko')  # 'ko' means black circle
+
+# Set additional plot details
         ax.set_title("Autonomic Balance Diagram")
         ax.set_xlabel("Sympathetic Level")
         ax.set_ylabel("Parasympathetic Level")
-
-# Set custom ticks for x and y axes
         ax.set_xticks([0.5, 1.5, 2.5])
         ax.set_xticklabels(["Low", "Normal", "High"])
         ax.set_yticks([0.5, 1.5, 2.5])
@@ -959,7 +957,8 @@ if selected == "HRV Analysis":
 
 # Display the plot in Streamlit
         st.pyplot(fig)
-
+        
+    
 
 
 
