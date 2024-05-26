@@ -284,20 +284,28 @@ half_point_total = len(FFT_FREQ_TOTAL) // 2
 fft_freq_total = FFT_FREQ_TOTAL[:half_point_total]
 fft_result_total = FFT_TOTAL[:half_point_total]
 
-# Fungsi untuk interpolasi manual
 def manual_interpolation(x, xp, fp):
     return np.interp(x, xp, fp)
-
-# Frequency bands
 x_vlf = np.linspace(0.003, 0.04, 99)
 x_lf = np.linspace(0.04, 0.15, 99)
 x_hf = np.linspace(0.15, 0.4, 99)
-
-
 y_vlf = manual_interpolation(x_vlf, fft_freq_total, np.abs(fft_result_total))
 y_lf = manual_interpolation(x_lf, fft_freq_total, np.abs(fft_result_total))
 y_hf = manual_interpolation(x_hf, fft_freq_total, np.abs(fft_result_total))
 
+
+def trapezoidal_rule(y, x):
+    return np.sum((x[1:] - x[:-1]) * (y[1:] + y[:-1]) / 2)
+TP = trapezoidal_rule(np.abs(fft_result_total), fft_freq_total)
+VLF = trapezoidal_rule(y_vlf, x_vlf)
+LF = trapezoidal_rule(y_lf, x_lf)
+HF = trapezoidal_rule(y_hf, x_hf)
+
+total_power = VLF + LF + HF
+# Hitung LF dan HF yang dinormalisasi
+LF_norm = LF / (total_power - VLF)
+HF_norm = HF / (total_power - VLF)
+LF_HF = LF / HF
 
 
 
@@ -844,6 +852,22 @@ if selected == "HRV Analysis":
         legend=dict(x=0.8, y=0.95)
        )
         st.plotly_chart(fig)
+        
+        data = {
+        "Metric": ["Total Power (TP)", "VLF", "LF", "HF", "LF/HF"],
+        "Value": [total_power, VLF, LF_norm, HF_norm, LF_HF]
+        }
+        df = pd.DataFrame(data)
+        fig = go.Figure(data=[go.Table(
+          header=dict(values=list(df.columns),
+                fill_color='paleturquoise',
+                align='left'),
+          cells=dict(values=[df.Metric, df.Value],
+               fill_color='lavender',
+               align='left'))
+           ])
+        st.plotly_chart(fig)
+
 
 
 
