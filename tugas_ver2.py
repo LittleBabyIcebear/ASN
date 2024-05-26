@@ -206,6 +206,20 @@ half_point1 = len(fft_freq1) // 2
 fft_freq_half1 = fft_freq1[:half_point1]
 fft_result_half1 = fft_result1[:half_point1]
 
+# Ambil subset data dari 101 sampai 151
+n_subset2 = n[101:151]
+bpm_rr_baseline_subset2 = bpm_rr_baseline[101:151]
+M = len(bpm_rr_baseline_subset2) -1
+hamming_window = np.zeros(M+1)
+for i in range(M):
+    hamming_window[i] = 0.54 - 0.46 * np.cos(2 * np.pi * i /M )
+bpm_rr_baseline_windowed2 = bpm_rr_baseline_subset2 * hamming_window
+fft_result2 = fourier_transform(bpm_rr_baseline_windowed2)
+fft_freq2 = calculate_frequency(len(bpm_rr_baseline_windowed2), sampling_rate)
+half_point2 = len(fft_freq2) // 2
+fft_freq_half2 = fft_freq2[:half_point2]
+fft_result_half2 = fft_result2[:half_point2]
+
 
 
 
@@ -518,6 +532,39 @@ if selected == "HRV Analysis":
         fig_fft = go.Figure(data=go.Scatter(x=fft_freq_half1, y=np.abs(fft_result_half1), mode='lines'))
         fig_fft.update_layout(
         title="FFT of TACHOGRAM 50:100",
+        xaxis_title="Frequency (Hz)",
+        yaxis_title="Magnitude",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig_fft)
+        
+        # Plotting dengan Plotly untuk subset data 101:151
+        fig = go.Figure(data=go.Scatter(x=n_subset2, y=bpm_rr_baseline_subset2, mode='lines'))
+        fig.update_layout(
+        title="TACHOGRAM (Data 101-151)",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig)
+        
+        #  windowing Hamming
+        fig = go.Figure(data=go.Scatter(x=n_subset2, y=bpm_rr_baseline_windowed2, mode='lines'))
+        fig.update_layout(
+        title="TACHOGRAM (Data 101-151) with Hamming Window",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig)
+
+        # Membuat grafik FFT
+        fig_fft = go.Figure(data=go.Scatter(x=fft_freq_half2, y=np.abs(fft_result_half2), mode='lines'))
+        fig_fft.update_layout(
+        title="FFT of TACHOGRAM 101:151",
         xaxis_title="Frequency (Hz)",
         yaxis_title="Magnitude",
         xaxis=dict(showline=True, showgrid=True),
