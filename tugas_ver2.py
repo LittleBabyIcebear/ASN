@@ -241,12 +241,12 @@ M = len(bpm_rr_baseline_subset4) -1
 hamming_window = np.zeros(M+1)
 for i in range(M):
     hamming_window[i] = 0.54 - 0.46 * np.cos(2 * np.pi * i /M )
-bpm_rr_baseline_windowed4 = bpm_rr_baseline_subset3 * hamming_window
+bpm_rr_baseline_windowed4 = bpm_rr_baseline_subset4 * hamming_window
 fft_result4 = fourier_transform(bpm_rr_baseline_windowed4)
 fft_freq4 = calculate_frequency(len(bpm_rr_baseline_windowed4), sampling_rate)
 half_point4 = len(fft_freq4) // 2
-fft_freq_half4 = fft_freq3[:half_point4]
-fft_result_half4 = fft_result3[:half_point4]
+fft_freq_half4 = fft_freq4[:half_point4]
+fft_result_half4 = fft_result4[:half_point4]
 
 
 
