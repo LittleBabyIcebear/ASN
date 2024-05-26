@@ -990,12 +990,12 @@ if selected == "HRV Analysis":
                 annotations.append(dict(
                 x=j, y=i, text=str(val), showarrow=False,
                 font=dict(color="black", size=16)
-        ))
+                ))
 
         fig.update_layout(
         title="Autonomic Balance Diagram",
         annotations=annotations
-    )
+        )
         fig.update_xaxes(ticks="outside", tickvals=[0, 1, 2])
         fig.update_yaxes(ticks="outside", tickvals=[0, 1, 2])
 
