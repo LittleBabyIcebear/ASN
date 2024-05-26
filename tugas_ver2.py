@@ -446,16 +446,42 @@ if selected == "HRV Analysis":
         yaxis=dict(showline=True, showgrid=True)
         )
         st.plotly_chart(fig)
-        # Plotting dengan Plotly untuk subset data
+        
+        # Plotting dengan Plotly untuk data 0:50
         fig = go.Figure(data=go.Scatter(x=n_subset, y=bpm_rr_baseline_subset, mode='lines'))
         fig.update_layout(
-        title="TACHOGRAM (Subset 0-49)",
+        title="TACHOGRAM (Data 0-49)",
         xaxis_title="n",
         yaxis_title="BPM",
         xaxis=dict(showline=True, showgrid=True),
         yaxis=dict(showline=True, showgrid=True)
         )
         st.plotly_chart(fig)
+        # Membuat windowing
+        fig1 = go.Figure(data=go.Scatter(x=n_subset, y=bpm_rr_baseline_windowed, mode='lines'))
+        fig1.update_layout(
+        title="TACHOGRAM (Data 0-49) with Hamming Window",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        fig1.show()
+
+       # Membuat grafik FFT
+        fig_fft = go.Figure(data=go.Scatter(x=fft_freq_half, y=np.abs(fft_result_half),mode="lines"))
+        fig_fft.update_layout(
+        title="FFT of TACHOGRAM",
+        xaxis_title="Frequency (Hz)",
+        yaxis_title="Magnitude",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        fig_fft.show()
+
+
+
+
 
         
         
