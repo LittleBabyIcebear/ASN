@@ -163,9 +163,7 @@ for n in range (ptp):
 
 n = np. arange(0,ptp,1,dtype=int)
 
-hamming_window = np.zeros(M+1)
-for i in range(M+1):
-    hamming_window[i] = 0.54 - 0.46 * np.cos(2 * np.pi * i / M)
+
 
 def fourier_transform(signal):
     N = len(signal)
@@ -183,6 +181,9 @@ bpm_rr_baseline = bpm_rr - 70
 n_subset = n[0:50]
 bpm_rr_baseline_subset = bpm_rr_baseline[0:50]
 M = len(bpm_rr_baseline_subset) - 1
+hamming_window = np.zeros(M+1)
+for i in range(M+1):
+    hamming_window[i] = 0.54 - 0.46 * np.cos(2 * np.pi * i / M)
 bpm_rr_baseline_windowed = bpm_rr_baseline_subset * hamming_window
 fft_result = fourier_transform(bpm_rr_baseline_windowed)
 sampling_rate = 1
