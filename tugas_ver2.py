@@ -921,35 +921,31 @@ if selected == "HRV Analysis":
         )
         st.plotly_chart(fig)
 
-  def determine_category(LF_norm, HF_norm, LF_HF):
-    if LF_norm < 0.2 and HF_norm < 0.2:
-        return 1  # Low - Low
-    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm < 0.2:
-        return 2  # Normal - Low
-    elif LF_norm > 0.6 and HF_norm < 0.2:
-        return 3  # High - Low
-    elif LF_norm < 0.2 and HF_norm >= 0.2 and HF_norm <= 0.6:
-        return 4  # Low - Normal
-    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
-        return 5  # Normal - Normal
-    elif LF_norm > 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
-        return 6  # High - Normal
-    elif LF_norm < 0.2 and HF_norm > 0.6:
-        return 7  # Low - High
-    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm > 0.6:
-        return 8  # Normal - High
-    elif LF_norm > 0.6 and HF_norm > 0.6:
-        return 9  # High - High
-    else:
-        return 0  # Undefined
+       def determine_category(LF_norm, HF_norm, LF_HF):
+            if LF_norm < 0.2 and HF_norm < 0.2:
+                return 1  # Low - Low
+            elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm < 0.2:
+                return 2  # Normal - Low
+            elif LF_norm > 0.6 and HF_norm < 0.2:
+                return 3  # High - Low
+            elif LF_norm < 0.2 and HF_norm >= 0.2 and HF_norm <= 0.6:
+                return 4  # Low - Normal
+            elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
+                return 5  # Normal - Normal
+            elif LF_norm > 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
+                return 6  # High - Normal
+            elif LF_norm < 0.2 and HF_norm > 0.6:
+                return 7  # Low - High
+            elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm > 0.6:
+                return 8  # Normal - High
+            elif LF_norm > 0.6 and HF_norm > 0.6:
+                return 9  # High - High
+            else:
+                return 0  # Undefined
 
 # Initialize Streamlit app
  st.title("Autonomic Balance Diagram")
 
-# Determine category
- LF_norm = st.slider("LF_norm", 0.0, 1.0, 0.5)
- HF_norm = st.slider("HF_norm", 0.0, 1.0, 0.5)
- LF_HF = st.slider("LF_HF", 0.0, 1.0, 0.5)
  category = determine_category(LF_norm, HF_norm, LF_HF)
  st.write("Category:", category)
 
