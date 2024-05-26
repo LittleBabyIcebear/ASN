@@ -7,8 +7,7 @@ import math
 import streamlit as st 
 from streamlit_lottie import st_lottie
 from st_click_detector import click_detector
-import seaborn as sns
-from matplotlib.colors import ListedColormap
+import plotly.express as px
 
 ########
 column_names = ['ECG']
@@ -921,6 +920,80 @@ if selected == "HRV Analysis":
         yaxis_title='Nilai'
         )
         st.plotly_chart(fig)
+        def determine_category(LF_norm, HF_norm, LF_HF):
+    if LF_norm < 0.2 and HF_norm < 0.2:
+        return 1  # Low - Low
+    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm < 0.2:
+        return 2  # Normal - Low
+    elif LF_norm > 0.6 and HF_norm < 0.2:
+        return 3  # High - Low
+    elif LF_norm < 0.2 and HF_norm >= 0.2 and HF_norm <= 0.6:
+        return 4  # Low - Normal
+    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
+        return 5  # Normal - Normal
+    elif LF_norm > 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
+        return 6  # High - Normal
+    elif LF_norm < 0.2 and HF_norm > 0.6:
+        return 7  # Low - High
+    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm > 0.6:
+        return 8  # Normal - High
+    elif LF_norm > 0.6 and HF_norm > 0.6:
+        return 9  # High - High
+    else:
+        return 0  # Undefined
+
+# Initialize Streamlit app
+st.title("Autonomic Balance Diagram")
+
+
+# Determine category
+category = determine_category(LF_norm, HF_norm, LF_HF)
+st.write("Category:", category)
+
+# Define data and coordinates
+data = [
+    [7, 8, 9],
+    [4, 5, 6],
+    [1, 2, 3]
+]
+
+coordinates = {
+    1: (2, 0),
+    2: (2, 1),
+    3: (2, 2),
+    4: (1, 0),
+    5: (1, 1),
+    6: (1, 2),
+    7: (0, 0),
+    8: (0, 1),
+    9: (0, 2)
+}
+
+# Create DataFrame for Plotly Express
+df = px.data.heatmap(data, x=["Low", "Normal", "High"], y=["High", "Normal", "Low"])
+
+# Create heatmap with Plotly Express
+fig = px.imshow(data, labels=dict(x="Sympathetic Level", y="Parasympathetic Level"), x=["Low", "Normal", "High"], y=["High", "Normal", "Low"])
+
+# Mark category on the heatmap
+coord = coordinates.get(category, None)
+if coord:
+    fig.add_shape(type="circle", xref="x", yref="y", x0=coord[1], y0=coord[0], x1=coord[1]+1, y1=coord[0]+1, line_color="black")
+
+# Customize heatmap
+fig.update_layout(title="Autonomic Balance Diagram")
+fig.update_xaxes(ticks="outside", tickvals=[0, 1, 2])
+fig.update_yaxes(ticks="outside", tickvals=[0, 1, 2])
+
+# Display heatmap in Streamlit
+st.plotly_chart(fig)
+
+
+        
+
+
+    
+    
 
 
 
