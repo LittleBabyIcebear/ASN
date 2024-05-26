@@ -544,7 +544,7 @@ if selected == "Calculation":
               xaxis=dict(showline=True, showgrid=True),
               yaxis=dict(showline=True, showgrid=True)
           )
-         st.plotly_chart(fig_Tachogram)
+        st.plotly_chart(fig_Tachogram)
 
         fig_histogram = go.Figure(data=go.Histogram(x=bpm_rr, nbinsx=ptp))
 
