@@ -974,7 +974,7 @@ if selected == "HRV Analysis":
 # Mark category on the heatmap
         coord = coordinates.get(category, None)
         if coord:
-            fig.add_shape(type="circle", xref="x", yref="y", x0=coord[1], y0=coord[0], x1=coord[1]+1, line_color="black")
+            fig.add_shape(type="circle", xref="x", yref="y",  y0=coord[0], x1=coord[1]+1, y1=coord[0]+, line_color="black")
 
 # Add annotations for numbers
         annotations = []
