@@ -940,16 +940,12 @@ if selected == "HRV Analysis":
         xaxis_title='Kategori',
         yaxis_title='Nilai'
         )
-        st.plotly_chart(fig)
-        fig, ax = plt.subplots()
-        ax.set_title("Autonomic Balance Diagram")
-        ax.set_xlabel("Sympathetic Level")
-        ax.set_ylabel("Parasympathetic Level")
-        ax.set_xticks([0.5, 1.5, 2.5])
-        ax.set_xticklabels(["Low", "Normal", "High"])
-        ax.set_yticks([0.5, 1.5, 2.5])
-        ax.set_yticklabels(["High", "Normal", "Low"])
-
+        
+        plt.title("Autonomic Balance Diagram")
+        plt.xlabel("Sympathetic Level")
+        plt.ylabel("Parasympathetic Level")
+        plt.xticks([0.5, 1.5, 2.5], ["Low", "Normal", "High"])
+        plt.yticks([0.5, 1.5, 2.5], ["High", "Normal", "Low"])
         # Tampilkan plot Matplotlib di aplikasi Streamlit
         st.pyplot(fig)
 
