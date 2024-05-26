@@ -463,31 +463,46 @@ if selected == "Method":
          )
         st.plotly_chart(fig)
 if selected == "Calculation":
-    selected2 = option_menu(None, ["Heartrate", "Respiratory", "Recomendation", 'Settings'], 
-            icons=['cardiac', 'nose', "Star", 'gear'], 
+    selected2 = option_menu(None, ["Result", "Information"], 
             menu_icon="cast", default_index=0, orientation="horizontal")
+    if selected2 == "Result":
+        data = {
+        "Calculation of HR": ["NUMBERS OF R TO R CALCULATIONS", "CALCULATION OF THE AMOUNT OF R", "BPM CALCULATIONS"],
+        "Hasil": [ptp, j, rata]
+        }
+        df = pd.DataFrame(data)
+
+        # Buat tabel menggunakan Plotly
+        fig = go.Figure(data=[go.Table(
+        columnwidth=[80, 20],  # Set column width
+        header=dict(values=list(df.columns),
+                fill_color='red',  # Ubah warna header menjadi merah
+                align='left',
+                line_color='darkslategray',
+                height=30),  # Set header height
+        cells=dict(values=[df["Calculation of HR"], df["Hasil"]],
+               fill_color='white',  # Ubah warna sel menjadi merah
+               align='left',
+               line_color='darkslategray',
+               height=25,  # Set cell height
+               font_size=12,  # Set font size
+               ),
+        )])
+
+        # Set layout to adjust the table size
+        fig.update_layout(
+        width=700,
+        height=200,
+        margin=dict(l=10, r=10, t=10, b=10)
+        )
+
+        # Tampilkan tabel
+        st.plotly_chart(fig)
+
         
-    optimizer_options = ['NUMBERS OF R TO R CALCULATIONS', 'CALCULATION OF THE AMOUNT OF R',"BPM CALCULATIONS"]
-    selected_optimizer = st.selectbox('Calculation of HR', optimizer_options)
-                                      
-    if selected_optimizer == 'NUMBERS OF R TO R CALCULATIONS':
-        st.write(ptp)
-    elif selected_optimizer == 'CALCULATION OF THE AMOUNT OF R':
-        st.write(j)
-    elif selected_optimizer == 'BPM CALCULATIONS':
-        st.write(rata)
-        
-    optimizer_options1 = ['SDNN', 'RMSSD',"pNN50","SDSD"]
-    selected_optimizer1 = st.selectbox('Time-domain analysis', optimizer_options1)
+
+
     
-    if selected_optimizer1 == 'SDNN':
-        st.write(SDNN)
-    elif selected_optimizer1 == 'RMSSD':
-        st.write(RMSSD)
-    elif selected_optimizer1 == 'pNN50':
-        st.write(pNN50)
-    elif selected_optimizer1 == 'SDSD':
-        st.write(SDSD)
     fig_Tachogram = go.Figure(data=go.Scatter(x=n, y=bpm_rr, mode='lines'))
     fig_Tachogram.update_layout(
       title="TACHOGRAM",
