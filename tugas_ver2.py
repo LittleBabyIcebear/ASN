@@ -587,7 +587,7 @@ if selected == "HRV Analysis":
             st.markdown(new_title, unsafe_allow_html=True)
 
    
-            st.plotly_chart(fig_histogram)
+    
     elif sub_selected == 'Frequency Domain analysis':
         
         
