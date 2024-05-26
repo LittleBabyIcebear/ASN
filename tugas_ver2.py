@@ -570,8 +570,23 @@ if selected == "HRV Analysis":
               bargroupgap=0.1, # Optional: Adjusts the gap between groups
               )
             st.plotly_chart(fig_histogram)
-        if selected2 == "Informationt":
-
+        if selected2 == "Information":
+            new_title = '<p style="font-family:Georgia; color:blue; font-size: 23px; text-align: left;">SDNN</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:black; font-size: 20px; text-align: justify;">SDNN adalah ukuran yang digunakan untuk mengukur variasi dalam interval RR. SDNN menghitung standar deviasi dari semua interval RR dalam suatu rekaman. SDNN digunakan sebagai indikator aktivitas sistem saraf otonom dan respons tubuh terhadap stres. SDNN juga digunakan untuk menganalisis bagaimana tubuh menanggapi stres dan bagaimana sistem saraf otonom bekerja untuk mengatur respons tubuh terhadap stres.</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:blue; font-size: 23px; text-align: left;">SDSD</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:black; font-size: 20px; text-align: Justify;">SDSD adalah ukuran yang digunakan untuk mengukur variasi dalam perbedaan antara interval RR yang berdekatan. SDSD menghitung standar deviasi dari perbedaan antara interval RR yang berdekatan. SDSD digunakan sebagai indikator aktivitas sistem saraf otonom dan respons tubuh terhadap stres. SDSD juga digunakan untuk menganalisis bagaimana tubuh menanggapi stres dan bagaimana sistem saraf otonom bekerja untuk mengatur respons tubuh terhadap stres.</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:blue; font-size: 23px; text-align: left;">RMSSD </p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:black; font-size: 20px; text-align: Justify;">RMSSD adalah ukuran statistik yang digunakan untuk mengukur variasi dalam interval RR. RMSSD menghitung perbedaan antara interval RR berurutan dan kemudian menghitung akar rata-rata kuadrat dari perbedaan tersebut. RMSSD digunakan sebagai indikator aktivitas sistem saraf otonom, khususnya cabang parasympathetic. RMSSD juga digunakan sebagai dasar untuk menghitung skor HRV, yang memberikan informasi tentang kemampuan tubuh dalam menanggapi stres.</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:blue; font-size: 23px; text-align: left;">PNN50</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:black; font-size: 20px; text-align: Justify;">PNN50 adalah ukuran yang digunakan untuk mengukur persentase interval RR yang berbeda lebih dari 50 ms. PNN50 digunakan sebagai indikator aktivitas sistem saraf otonom, khususnya cabang parasympathetic. PNN50 juga digunakan sebagai indikator stres dan keseimbangan sistem saraf otonom. PNN50 dapat digunakan untuk menganalisis bagaimana tubuh menanggapi stres dan bagaimana sistem saraf otonom bekerja untuk mengatur respons tubuh terhadap stres.</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
 
    
             st.plotly_chart(fig_histogram)
