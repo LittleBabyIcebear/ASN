@@ -644,7 +644,7 @@ if selected == "HRV Analysis":
               )
             st.plotly_chart(fig_histogram)
         if selected2 == "Informationt":
-            fig_histogram.update_layout(
+
 
    
             st.plotly_chart(fig_histogram)
