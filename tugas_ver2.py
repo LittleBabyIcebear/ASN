@@ -7,6 +7,8 @@ import math
 import streamlit as st 
 from streamlit_lottie import st_lottie
 from st_click_detector import click_detector
+import seaborn as sns
+from matplotlib.colors import ListedColormap
 
 ########
 column_names = ['ECG']
