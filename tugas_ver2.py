@@ -981,22 +981,16 @@ if selected == "HRV Analysis":
 # Mark category on the heatmap
         coord = coordinates.get(category, None)
         if coord:
-            fig.add_trace(go.Scatter(
-            x=[coord[1]],  # Column index
-            y=[coord[0]],  # Row index
-            mode='markers',
-            marker=dict(color='black', size=10),
-            showlegend=False
-            ))
+            fig.add_shape(type="circle", xref="x", yref="y", x0=coord[1], y0=coord[0], x1=coord[1]+1, y1=coord[0]+1, line_color="black")
 
 # Add annotations for numbers
         annotations = []
         for i, row in enumerate(data):
             for j, val in enumerate(row):
-                annotations.append(dict(
-                x=j, y=i, text=str(val), showarrow=False,
-                font=dict(color="black", size=16)
-                ))
+            annotations.append(dict(
+            x=j, y=i, text=str(val), showarrow=False,
+            font=dict(color="black", size=16)
+        ))
 
         fig.update_layout(
         title="Autonomic Balance Diagram",
