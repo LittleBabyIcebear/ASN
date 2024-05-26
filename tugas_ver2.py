@@ -317,7 +317,7 @@ LF_HF = LF / HF
 
 
 with st.sidebar:
-    selected = option_menu("TUGAS 1", ["Home","Ecyclopedia", "Data & Graphic", "Filter","Method","Calculation","HRV Analysis"], default_index=0)
+    selected = option_menu("TUGAS 1", ["Home","Encyclopedia", "Data & Graphic", "Filter","Method","Calculation","HRV Analysis"], default_index=0)
 
 if selected == "Home":
    st.title('Project ASN Kelompok 1')
@@ -332,9 +332,9 @@ if selected == "Home":
    st.markdown(new_title, unsafe_allow_html=True)
    st_lottie("https://lottie.host/50914bbf-8aa3-4ac1-8ab7-d7d7882d51d5/QVzC4aV82R.json", height=400, width=400)
 
-if selected == "Ecyclopedia":
+if selected == "Encyclopedia":
      # Main title
-    st.markdown("<h1 style='text-align: center; color: red;'>🫀ECYCLOPEDIA</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: red;'>🫀ENCYCLOPEDIA</h1>", unsafe_allow_html=True)
      # Subtitle
     new_title = '<p style="font-family:Georgia; color:blue; font-size: 23px; text-align: left;">1. Apa yang dimaksud HRV?</p>'
     st.markdown(new_title, unsafe_allow_html=True)
