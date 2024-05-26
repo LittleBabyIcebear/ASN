@@ -459,19 +459,17 @@ if selected == "Method & Calculation":
         )
         st.plotly_chart(fig)
     elif selected_optimizer == 'Calculation':
-
-
     # Define the data for the table
-    data = {
-        "Calculation of HR": ["NUMBERS OF R TO R CALCULATIONS", "CALCULATION OF THE AMOUNT OF R", "BPM CALCULATIONS"],
-        "Hasil": [ptp, j, rata]
-    }
-    df = pd.DataFrame(data)
+        data = {
+            "Calculation of HR": ["NUMBERS OF R TO R CALCULATIONS", "CALCULATION OF THE AMOUNT OF R", "BPM CALCULATIONS"],
+            "Hasil": [ptp, j, rata]
+        }
+        df = pd.DataFrame(data)
 
-    # Create the table using Plotly
-    fig = go.Figure(data=[go.Table(
-        columnwidth=[80, 20],  # Set column width
-        header=dict(values=list(df.columns),
+        # Create the table using Plotly
+        fig = go.Figure(data=[go.Table(
+            columnwidth=[80, 20],  # Set column width
+            header=dict(values=list(df.columns),
                     fill_color='red',  # Change header color to red
                     align='left',
                     line_color='darkslategray',
@@ -486,14 +484,14 @@ if selected == "Method & Calculation":
     )])
 
     # Set layout to adjust the table size
-    fig.update_layout(
-        width=700,
-        height=200,
-        margin=dict(l=10, r=10, t=10, b=10)
-    )
+        fig.update_layout(
+            width=700,
+            height=200,
+            margin=dict(l=10, r=10, t=10, b=10)
+        )
 
     # Display the table
-    st.plotly_chart(fig)
+        st.plotly_chart(fig)
 
         
 
