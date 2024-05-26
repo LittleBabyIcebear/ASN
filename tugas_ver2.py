@@ -453,16 +453,17 @@ if selected == "Method & Calculation":
         st.subheader("THRESHOLDING")
         st.plotly_chart(fig)
     
- fig = go.Figure(data=go.Scatter(x=x[0:4000], y=thrqrs[0:4000], mode='lines'))
-    fig.update_layout(
-    title="SIGNAL THRESHOLD",
-    xaxis_title="Time",
-    yaxis_title="Amplitude",
-    xaxis=dict(showline=True,showgrid=True),
-    yaxis=dict(showline=True,showgrid=True)  
-     )
- st.plotly_chart(fig)
-     data = {
+        fig = go.Figure(data=go.Scatter(x=x[0:4000], y=thrqrs[0:4000], mode='lines'))
+        fig.update_layout(
+        title="SIGNAL THRESHOLD",
+        xaxis_title="Time",
+        yaxis_title="Amplitude",
+        xaxis=dict(showline=True,showgrid=True),
+        yaxis=dict(showline=True,showgrid=True)  
+         )
+         st.plotly_chart(fig)
+        
+ data = {
         "Calculation of HR": ["NUMBERS OF R TO R CALCULATIONS", "CALCULATION OF THE AMOUNT OF R", "BPM CALCULATIONS"],
         "Hasil": [ptp, j, rata]
         }
