@@ -967,18 +967,27 @@ if selected == "HRV Analysis":
             9: (0, 2)
           }
 
+        # Coordinates for categories (example)
+        coordinates = {
+        "example_category": (1, 1)  # Example coordinate (row, column)
+        }
+
+        # Selected category
+        category = "example_category"
+
+# Create heatmap with Plotly Express
         fig = px.imshow(data, labels=dict(x="Sympathetic Level", y="Parasympathetic Level"), x=["Low", "Normal", "High"], y=["High", "Normal", "Low"])
 
 # Mark category on the heatmap
         coord = coordinates.get(category, None)
         if coord:
             fig.add_trace(go.Scatter(
-            x=[coord[1] + 0.5],
-            y=[coord[0] + 0.5],
+            x=[coord[1]],  # Column index
+            y=[coord[0]],  # Row index
             mode='markers',
             marker=dict(color='black', size=10),
             showlegend=False
-    ))
+            ))
 
 # Add annotations for numbers
         annotations = []
@@ -987,12 +996,12 @@ if selected == "HRV Analysis":
                 annotations.append(dict(
                 x=j, y=i, text=str(val), showarrow=False,
                 font=dict(color="black", size=16)
-        ))
+                ))
 
         fig.update_layout(
         title="Autonomic Balance Diagram",
         annotations=annotations
-)
+    )
         fig.update_xaxes(ticks="outside", tickvals=[0, 1, 2])
         fig.update_yaxes(ticks="outside", tickvals=[0, 1, 2])
 
