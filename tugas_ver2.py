@@ -589,7 +589,6 @@ if selected == "HRV Analysis":
     
     elif sub_selected == 'Frequency Domain analysis':
         
-        
         # Plotting dengan Plotly
         n = np.arange(0, ptp, 1, dtype=int)
         fig = go.Figure(data=go.Scatter(x=n, y=bpm_rr_baseline, mode='lines'))
@@ -921,7 +920,7 @@ if selected == "HRV Analysis":
         )
         st.plotly_chart(fig)
 
-       def determine_category(LF_norm, HF_norm, LF_HF):
+        def determine_category(LF_norm, HF_norm, LF_HF):
             if LF_norm < 0.2 and HF_norm < 0.2:
                 return 1  # Low - Low
             elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm < 0.2:
@@ -944,45 +943,45 @@ if selected == "HRV Analysis":
                 return 0  # Undefined
 
 # Initialize Streamlit app
- st.title("Autonomic Balance Diagram")
+        st.title("Autonomic Balance Diagram")
 
- category = determine_category(LF_norm, HF_norm, LF_HF)
- st.write("Category:", category)
+        category = determine_category(LF_norm, HF_norm, LF_HF)
+        st.write("Category:", category)
 
 # Define data and coordinates
- data = [
-    [7, 8, 9],
-    [4, 5, 6],
-    [1, 2, 3]
- ]
+         data = [
+            [7, 8, 9],
+            [4, 5, 6],
+            [1, 2, 3]
+         ]
 
- coordinates = {
-    1: (2, 0),
-    2: (2, 1),
-    3: (2, 2),
-    4: (1, 0),
-    5: (1, 1),
-    6: (1, 2),
-    7: (0, 0),
-    8: (0, 1),
-    9: (0, 2)
- }
+         coordinates = {
+            1: (2, 0),
+            2: (2, 1),
+            3: (2, 2),
+            4: (1, 0),
+            5: (1, 1),
+            6: (1, 2),
+            7: (0, 0),
+            8: (0, 1),
+            9: (0, 2)
+         }
 
 # Create heatmap with Plotly Express
- fig = px.imshow(data, labels=dict(x="Sympathetic Level", y="Parasympathetic Level"), x=["Low", "Normal", "High"], y=["High", "Normal", "Low"])
+         fig = px.imshow(data, labels=dict(x="Sympathetic Level", y="Parasympathetic Level"), x=["Low", "Normal", "High"], y=["High", "Normal", "Low"])
 
 # Mark category on the heatmap
- coord = coordinates.get(category, None)
- if coord:
-    fig.add_shape(type="circle", xref="x", yref="y", x0=coord[1], y0=coord[0], x1=coord[1]+1, y1=coord[0]+1, line_color="black")
+         coord = coordinates.get(category, None)
+         if coord:
+            fig.add_shape(type="circle", xref="x", yref="y", x0=coord[1], y0=coord[0], x1=coord[1]+1, y1=coord[0]+1, line_color="black")
 
 # Customize heatmap
- fig.update_layout(title="Autonomic Balance Diagram")
- fig.update_xaxes(ticks="outside", tickvals=[0, 1, 2])
- fig.update_yaxes(ticks="outside", tickvals=[0, 1, 2])
+         fig.update_layout(title="Autonomic Balance Diagram")
+         fig.update_xaxes(ticks="outside", tickvals=[0, 1, 2])
+         fig.update_yaxes(ticks="outside", tickvals=[0, 1, 2])
 
 # Display heatmap in Streamlit
- st.plotly_chart(fig)
+         st.plotly_chart(fig)
 
 
         
