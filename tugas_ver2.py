@@ -463,6 +463,10 @@ if selected == "Method":
          )
         st.plotly_chart(fig)
 if selected == "Calculation":
+    selected2 = option_menu(None, ["Heartrate", "Respiratory", "Recomendation", 'Settings'], 
+            icons=['cardiac', 'nose', "Star", 'gear'], 
+            menu_icon="cast", default_index=0, orientation="horizontal")
+        
     optimizer_options = ['NUMBERS OF R TO R CALCULATIONS', 'CALCULATION OF THE AMOUNT OF R',"BPM CALCULATIONS"]
     selected_optimizer = st.selectbox('Calculation of HR', optimizer_options)
                                       
