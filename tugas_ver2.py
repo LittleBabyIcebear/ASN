@@ -248,6 +248,35 @@ half_point4 = len(fft_freq4) // 2
 fft_freq_half4 = fft_freq4[:half_point4]
 fft_result_half4 = fft_result4[:half_point4]
 
+# Ambil subset data dari 251 sampai 301
+n_subset5 = n[251:301]
+bpm_rr_baseline_subset5 = bpm_rr_baseline[251:301]
+M = len(bpm_rr_baseline_subset5) -1
+hamming_window = np.zeros(M+1)
+for i in range(M):
+    hamming_window[i] = 0.54 - 0.46 * np.cos(2 * np.pi * i /M )
+bpm_rr_baseline_windowed5 = bpm_rr_baseline_subset5 * hamming_window
+fft_result5 = fourier_transform(bpm_rr_baseline_windowed5)
+fft_freq5 = calculate_frequency(len(bpm_rr_baseline_windowed5), sampling_rate)
+half_point5 = len(fft_freq5) // 2
+fft_freq_half5 = fft_freq5[:half_point5]
+fft_result_half5 = fft_result5[:half_point5]
+
+# Ambil subset data dari 301 sampai 351
+n_subset6 = n[301:351]
+bpm_rr_baseline_subset6 = bpm_rr_baseline[301:351]
+M = len(bpm_rr_baseline_subset6) -1
+hamming_window = np.zeros(M+1)
+for i in range(M):
+    hamming_window[i] = 0.54 - 0.46 * np.cos(2 * np.pi * i /M )
+bpm_rr_baseline_windowed6 = bpm_rr_baseline_subset6 * hamming_window
+fft_result6 = fourier_transform(bpm_rr_baseline_windowed6)
+sampling_rate = 1
+fft_freq6 = calculate_frequency(len(bpm_rr_baseline_windowed6), sampling_rate)
+half_point6 = len(fft_freq6) // 2
+fft_freq_half6 = fft_freq6[:half_point6]
+fft_result_half6 = fft_result6[:half_point6]
+
 
 
 
@@ -665,6 +694,77 @@ if selected == "HRV Analysis":
         yaxis=dict(showline=True, showgrid=True)
         )
         st.plotly_chart(fig_fft)
+
+        # Plotting dengan Plotly untuk subset data 251:301
+        fig = go.Figure(data=go.Scatter(x=n_subset5, y=bpm_rr_baseline_subset5, mode='lines'))
+        fig.update_layout(
+        title="TACHOGRAM (Data 251-301)",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig)
+        
+        #  windowing Hamming
+        fig = go.Figure(data=go.Scatter(x=n_subset5, y=bpm_rr_baseline_windowed5, mode='lines'))
+        fig.update_layout(
+        title="TACHOGRAM (Data 251-301) with Hamming Window",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig)
+
+        # Membuat grafik FFT
+        fig_fft = go.Figure(data=go.Scatter(x=fft_freq_half5, y=np.abs(fft_result_half5), mode='lines'))
+        fig_fft.update_layout(
+        title="FFT of TACHOGRAM 251:301",
+        xaxis_title="Frequency (Hz)",
+        yaxis_title="Magnitude",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig_fft)
+
+        # Plotting dengan Plotly untuk subset data 301:351
+        fig = go.Figure(data=go.Scatter(x=n_subset6, y=bpm_rr_baseline_subset6, mode='lines'))
+        fig.update_layout(
+        title="TACHOGRAM (Data 301-351)",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig)
+        
+        #  windowing Hamming
+        fig = go.Figure(data=go.Scatter(x=n_subset6, y=bpm_rr_baseline_windowed6, mode='lines'))
+        fig.update_layout(
+        title="TACHOGRAM (Data 301-251) with Hamming Window",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig)
+
+        # Membuat grafik FFT
+        fig_fft = go.Figure(data=go.Scatter(x=fft_freq_half6, y=np.abs(fft_result_half6), mode='lines'))
+        fig_fft.update_layout(
+        title="FFT of TACHOGRAM 301:351",
+        xaxis_title="Frequency (Hz)",
+        yaxis_title="Magnitude",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig_fft)
+ 
+
+
+        
+        
 
 
 
