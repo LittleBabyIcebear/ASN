@@ -220,6 +220,20 @@ half_point2 = len(fft_freq2) // 2
 fft_freq_half2 = fft_freq2[:half_point2]
 fft_result_half2 = fft_result2[:half_point2]
 
+# Ambil subset data dari 151 sampai 201
+n_subset3 = n[151:201]
+bpm_rr_baseline_subset3 = bpm_rr_baseline[151:201]
+M = len(bpm_rr_baseline_subset3) -1
+hamming_window = np.zeros(M+1)
+for i in range(M):
+    hamming_window[i] = 0.54 - 0.46 * np.cos(2 * np.pi * i /M )
+bpm_rr_baseline_windowed3 = bpm_rr_baseline_subset3 * hamming_window
+fft_result3 = fourier_transform(bpm_rr_baseline_windowed3)
+fft_freq3 = calculate_frequency(len(bpm_rr_baseline_windowed3), sampling_rate)
+half_point3 = len(fft_freq3) // 2
+fft_freq_half3 = fft_freq3[:half_point3]
+fft_result_half3 = fft_result3[:half_point3]
+
 
 
 
@@ -571,6 +585,41 @@ if selected == "HRV Analysis":
         yaxis=dict(showline=True, showgrid=True)
         )
         st.plotly_chart(fig_fft)
+        
+        # Plotting dengan Plotly untuk subset data 151:201
+        fig = go.Figure(data=go.Scatter(x=n_subset3, y=bpm_rr_baseline_subset3, mode='lines'))
+        fig.update_layout(
+        title="TACHOGRAM (Data 151-201)",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig)
+        
+        #  windowing Hamming
+        fig = go.Figure(data=go.Scatter(x=n_subset3, y=bpm_rr_baseline_windowed3, mode='lines'))
+        fig.update_layout(
+        title="TACHOGRAM (Data 151-201) with Hamming Window",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig)
+
+        # Membuat grafik FFT
+        fig_fft = go.Figure(data=go.Scatter(x=fft_freq_half3, y=np.abs(fft_result_half3), mode='lines'))
+        fig_fft.update_layout(
+        title="FFT of TACHOGRAM 101:151",
+        xaxis_title="Frequency (Hz)",
+        yaxis_title="Magnitude",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig_fft)
+
+
 
 
         
