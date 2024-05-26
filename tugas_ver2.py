@@ -461,7 +461,7 @@ if selected == "Method & Calculation":
         xaxis=dict(showline=True,showgrid=True),
         yaxis=dict(showline=True,showgrid=True)  
          )
-         st.plotly_chart(fig)
+        st.plotly_chart(fig)
         
  data = {
         "Calculation of HR": ["NUMBERS OF R TO R CALCULATIONS", "CALCULATION OF THE AMOUNT OF R", "BPM CALCULATIONS"],
