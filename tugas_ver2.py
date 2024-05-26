@@ -307,6 +307,59 @@ LF_norm = LF / (total_power - VLF)
 HF_norm = HF / (total_power - VLF)
 LF_HF = LF / HF
 
+def determine_category(LF_norm, HF_norm, LF_HF):
+    if LF_norm < 0.2 and HF_norm < 0.2:
+        return 1  # Low - Low
+    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm < 0.2:
+        return 2  # Normal - Low
+    elif LF_norm > 0.6 and HF_norm < 0.2:
+        return 3  # High - Low
+    elif LF_norm < 0.2 and HF_norm >= 0.2 and HF_norm <= 0.6:
+        return 4  # Low - Normal
+    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
+        return 5  # Normal - Normal
+    elif LF_norm > 0.6 and HF_norm >= 0.2 and HF_norm <= 0.6:
+        return 6  # High - Normal
+    elif LF_norm < 0.2 and HF_norm > 0.6:
+        return 7  # Low - High
+    elif LF_norm >= 0.2 and LF_norm <= 0.6 and HF_norm > 0.6:
+        return 8  # Normal - High
+    elif LF_norm > 0.6 and HF_norm > 0.6:
+        return 9  # High - High
+    else:
+        return 0  # Undefine
+        
+data = [
+    [7, 8, 9],
+    [4, 5, 6],
+    [1, 2, 3]
+]
+
+# Buat heatmap
+plt.figure(figsize=(10, 8))
+ax = sns.heatmap(data, annot=True, fmt="d", cmap="coolwarm", cbar=False, linewidths=.5)
+
+coordinates = {
+    1: (2, 0),
+    2: (2, 1),
+    3: (2, 2),
+    4: (1, 0),
+    5: (1, 1),
+    6: (1, 2),
+    7: (0, 0),
+    8: (0, 1),
+    9: (0, 2)
+}
+
+category = determine_category(LF_norm, HF_norm, LF_HF)
+print("Category:", category)
+coord = coordinates.get(category, None)
+
+# Tandai kategori pada heatmap
+if coord:
+    ax.plot(coord[1] + 0.5, coord[0] + 0.5, 'ko')  
+
+
 
 
 with st.sidebar:
@@ -867,6 +920,27 @@ if selected == "HRV Analysis":
                align='left'))
            ])
         st.plotly_chart(fig)
+        
+        categories = ['Total Power (TP)', 'VLF', 'LF', 'HF']
+        values = [total_power, VLF, LF_norm, HF_norm]
+
+        fig = go.Figure()
+
+        fig.add_trace(go.Bar(
+        x=categories,
+        y=values,
+        marker_color=['blue', 'orange', 'green', 'red']
+        ))
+
+        # Menambahkan judul dan label sumbu
+        fig.update_layout(
+        title='Bar Series dari VLF, LF, HF',
+        xaxis_title='Kategori',
+        yaxis_title='Nilai'
+        )
+        st.plotly_chart(fig)
+
+
 
 
 
