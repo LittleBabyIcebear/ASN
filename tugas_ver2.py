@@ -277,6 +277,14 @@ half_point6 = len(fft_freq6) // 2
 fft_freq_half6 = fft_freq6[:half_point6]
 fft_result_half6 = fft_result6[:half_point6]
 
+# FFT Total dari 0 sampai 351
+FFT_TOTAL = (fft_result + fft_result1 +  fft_result2 + fft_result3 + fft_result4 + fft_result5 + fft_result6) / 7
+FFT_FREQ_TOTAL = (fft_freq + fft_freq1 + fft_freq2 +  fft_freq3 +  fft_freq4 +  fft_freq5 +  fft_freq6 )/ 7
+half_point_total = len(FFT_FREQ_TOTAL) // 2
+fft_freq_total = FFT_FREQ_TOTAL[:half_point_total]
+fft_result_total = FFT_TOTAL[:half_point_total]
+
+
 
 
 
@@ -742,7 +750,7 @@ if selected == "HRV Analysis":
         #  windowing Hamming
         fig = go.Figure(data=go.Scatter(x=n_subset6, y=bpm_rr_baseline_windowed6, mode='lines'))
         fig.update_layout(
-        title="TACHOGRAM (Data 301-251) with Hamming Window",
+        title="TACHOGRAM (Data 301-351) with Hamming Window",
         xaxis_title="n",
         yaxis_title="BPM",
         xaxis=dict(showline=True, showgrid=True),
@@ -760,6 +768,18 @@ if selected == "HRV Analysis":
         yaxis=dict(showline=True, showgrid=True)
         )
         st.plotly_chart(fig_fft)
+        # Membuat grafik FFT
+        fig_fft = go.Figure(data=go.Scatter(x=fft_freq_total, y=np.abs(fft_result_total), mode='lines'))
+        fig_fft.update_layout(
+        title="FFT tOTAL Of TACHOGRAM",
+        xaxis_title="Frequency (Hz)",
+        yaxis_title="Magnitude",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        fig_fft.show()
+
+
  
 
 
