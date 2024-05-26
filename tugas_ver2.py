@@ -400,7 +400,7 @@ if selected == "Filter":
         yaxis=dict(showline=True, showgrid=True)
      )
      st.plotly_chart(fig_HPF)
-if selected == "Method":
+if selected == "Method & Calculation":
 
     optimizer_options = ['','Derivative', 'Squaring',"Moving Average",'Thresholding']
     selected_optimizer = st.selectbox('pilih metode', optimizer_options)
@@ -453,14 +453,81 @@ if selected == "Method":
         st.subheader("THRESHOLDING")
         st.plotly_chart(fig)
     
-        fig = go.Figure(data=go.Scatter(x=x[0:4000], y=thrqrs[0:4000], mode='lines'))
+ fig = go.Figure(data=go.Scatter(x=x[0:4000], y=thrqrs[0:4000], mode='lines'))
+    fig.update_layout(
+    title="SIGNAL THRESHOLD",
+    xaxis_title="Time",
+    yaxis_title="Amplitude",
+    xaxis=dict(showline=True,showgrid=True),
+    yaxis=dict(showline=True,showgrid=True)  
+     )
+ st.plotly_chart(fig)
+     data = {
+        "Calculation of HR": ["NUMBERS OF R TO R CALCULATIONS", "CALCULATION OF THE AMOUNT OF R", "BPM CALCULATIONS"],
+        "Hasil": [ptp, j, rata]
+        }
+ df = pd.DataFrame(data)
+
+        # Buat tabel menggunakan Plotly
+ fig = go.Figure(data=[go.Table(
+        columnwidth=[80, 20],  # Set column width
+        header=dict(values=list(df.columns),
+                fill_color='red',  # Ubah warna header menjadi merah
+                align='left',
+                line_color='darkslategray',
+                height=30),  # Set header height
+        cells=dict(values=[df["Calculation of HR"], df["Hasil"]],
+               fill_color='white',  # Ubah warna sel menjadi merah
+               align='left',
+               line_color='darkslategray',
+               height=25,  # Set cell height
+               font_size=12,  # Set font size
+               ),
+        )])
+
+        # Set layout to adjust the table size
         fig.update_layout(
-        title="SIGNAL THRESHOLD",
-        xaxis_title="Time",
-        yaxis_title="Amplitude",
-        xaxis=dict(showline=True,showgrid=True),
-        yaxis=dict(showline=True,showgrid=True)  
-         )
+        width=700,
+        height=200,
+        margin=dict(l=10, r=10, t=10, b=10)
+        )
+
+        # Tampilkan tabel
+ st.plotly_chart(fig)
+        
+        new_title = '<p style="font-family:Georgia; color: black; font-size: 18px;">Statistical measures</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        data = {
+        "Statistical measures": ["SDNN", "RMSSD", "pNN50","SDSD"],
+        "Hasil": [SDNN,RMSSD, pNN50, SDSD]
+        }
+        df = pd.DataFrame(data)
+
+        # Buat tabel menggunakan Plotly
+        fig = go.Figure(data=[go.Table(
+        columnwidth=[80, 20],  # Set column width
+        header=dict(values=list(df.columns),
+                fill_color='red',  # Ubah warna header menjadi merah
+                align='left',
+                line_color='darkslategray',
+                height=30),  # Set header height
+        cells=dict(values=[df["Statistical measures"], df["Hasil"]],
+               fill_color='white',  # Ubah warna sel menjadi merah
+               align='left',
+               line_color='darkslategray',
+               height=25,  # Set cell height
+               font_size=12,  # Set font size
+               ),
+        )])
+
+        # Set layout to adjust the table size
+        fig.update_layout(
+         width=800,
+        height=200,
+        margin=dict(l=10, r=10, t=10, b=10)
+        )
+
+        # Tampilkan tabel
         st.plotly_chart(fig)
 if selected == "Calculation":
     selected2 = option_menu(None, ["Result", "Information"], 
