@@ -6,13 +6,10 @@ from streamlit_option_menu import option_menu
 import math
 import streamlit as st 
 from streamlit_lottie import st_lottie
-import requests
-from st_click_detector import click_detector
 
 ########
 column_names = ['ECG']
-#data=pd.read_csv(r"C:\Users\babby\Downloads\b (5)\b (4)\b\ECG5minutes.txt",delimiter="\t", names=column_names)
-data=pd.read_csv("https://raw.githubusercontent.com/LittleBabyIcebear/ASN/main/ECG5minutes.txt",delimiter="\t", names=column_names)
+data=pd.read_csv('ECG5minutes.txt',delimiter="\t", names=column_names)
 data["sample interval"] = np.arange(len(data))
 data["elapsed time"] = (data["sample interval"])*(1/200)
 x=data["elapsed time"]
@@ -156,25 +153,21 @@ RR_SDSD = 0
 for n in range (ptp):
   RR_SDSD += (((abs(selisih[n]-selisih[n+1]))-RRdif)**2)
 SDSD = math.sqrt(RR_SDSD/(ptp-2))
-ptp = len(selisih)
 
 bpm_rr = np.zeros(ptp)
-for n in range(ptp):
-    bpm_rr[n] = 60 / selisih[n]
-    if bpm_rr[n] > 100:
-        bpm_rr[n] = rata
+for n in range (ptp):
+  bpm_rr[n] = 60/selisih[n]
+  if bpm_rr [n]>100:
+    bpm_rr[n]=rata
 
-
-n = np.arange(0, ptp, 1, dtype=int)
-
-
+n = np. arange(0,ptp,1,dtype=int)
 
 
 
 
 
 with st.sidebar:
-    selected = option_menu("TUGAS 1", ["Home","Ecyclopedia", "Data & Graphic", "Filter","Method","HRV Analysis"], icons=['house', 'book',None,None,None,None], menu_icon="cast", default_index=1)
+    selected = option_menu("TUGAS 1", ["Home","Ecyclopedia", "Data & Graphic", "Filter","Method","Calculation"], default_index=0)
 
 if selected == "Home":
    st.title('Project ASN Kelompok 1')
@@ -201,23 +194,7 @@ if selected == "Ecyclopedia":
     st.markdown(new_title, unsafe_allow_html=True)
     new_title = '<p style="font-family:Georgia; color:black; font-size: 20px; text-align: Justify;">Jantung Anda berdetak dengan kecepatan tertentu setiap saat. Denyut tersebut berubah tergantung pada apa yang sedang Anda lakukan saat itu. Denyut jantung yang lebih lambat terjadi ketika Anda sedang beristirahat atau santai, dan denyut yang lebih cepat terjadi ketika Anda sedang aktif, stres, atau ketika Anda dalam bahaya. Terdapat variabilitas dalam detak jantung Anda berdasarkan kebutuhan tubuh dan pola pernapasan Anda. Obat-obatan tertentu dan perangkat medis - seperti alat pacu jantung - juga dapat memengaruhi variabilitas detak jantung Anda. Variabilitas detak jantung Anda juga cenderung menurun secara normal seiring bertambahnya usia.</p>'
     st.markdown(new_title, unsafe_allow_html=True)
-    
-  
-
-# HTML content with the new YouTube video embedded
-    content = """
-
-     <iframe id='Video 1' width='560' height='315' src='https://www.youtube.com/embed/MUhtAXPvVnE' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>
-     """
-
-# Display the HTML content
-    st.markdown(content, unsafe_allow_html=True)
-    st.link_button("Go to video", "https://youtu.be/MUhtAXPvVnE?si=rvYo04B8FCIcPT3I")
-
- 
-
-
-
+   
 
 if selected == "Data & Graphic":
     st.title('Data & Graphic Input')
@@ -326,7 +303,7 @@ if selected == "Method":
         yaxis=dict(showline=True,showgrid=True)  
          )
         st.plotly_chart(fig)
-        
+if selected == "Calculation":
     optimizer_options = ['NUMBERS OF R TO R CALCULATIONS', 'CALCULATION OF THE AMOUNT OF R',"BPM CALCULATIONS"]
     selected_optimizer = st.selectbox('Calculation of HR', optimizer_options)
                                       
@@ -337,79 +314,43 @@ if selected == "Method":
     elif selected_optimizer == 'BPM CALCULATIONS':
         st.write(rata)
         
-if selected == "HRV Analysis":
-    sub_selected = st.sidebar.radio(
-        "Pilih Metode HRV Analysis",
-        ["Time Domain Analysis", "Frequency Domain analysis", "Non Liniear analysis "],
-        index=0
-    )
+    optimizer_options1 = ['SDNN', 'RMSSD',"pNN50","SDSD"]
+    selected_optimizer1 = st.selectbox('Time-domain analysis', optimizer_options1)
+    
+    if selected_optimizer1 == 'SDNN':
+        st.write(SDNN)
+    elif selected_optimizer1 == 'RMSSD':
+        st.write(RMSSD)
+    elif selected_optimizer1 == 'pNN50':
+        st.write(pNN50)
+    elif selected_optimizer1 == 'SDSD':
+        st.write(SDSD)
+    fig_Tachogram = go.Figure(data=go.Scatter(x=n, y=bpm_rr, mode='lines'))
+    fig_Tachogram.update_layout(
+      title="TACHOGRAM",
+      xaxis_title="n",
+      yaxis_title="BPM",
+      xaxis=dict(showline=True, showgrid=True),
+      yaxis=dict(showline=True, showgrid=True)
+      )
+    st.plotly_chart(fig_Tachogram)
 
-    if sub_selected == 'Time Domain Analysis':
-        new_title = '<p style="font-family:Georgia; color:black; font-size: 25px; text-align: center;">Time Domain Analysis</p>'
-        st.markdown(new_title, unsafe_allow_html=True)
-        optimizer_options1 = ['','SDNN', 'RMSSD', "pNN50", "SDSD"]
-        selected_optimizer1 = st.selectbox('Time-domain analysis', optimizer_options1)
+    fig_histogram = go.Figure(data=go.Histogram(x=bpm_rr, nbinsx=ptp))
 
-        if selected_optimizer1 == 'SDNN':
-            st.write(SDNN)
-        elif selected_optimizer1 == 'RMSSD':
-            st.write(RMSSD)
-        elif selected_optimizer1 == 'pNN50':
-            st.write(pNN50)
-        elif selected_optimizer1 == 'SDSD':
-            st.write(SDSD)
+    fig_histogram.update_layout(
+      title="Histogram Interval RR",
+      xaxis_title="Interval RR",
+      yaxis_title="Banyak Data",
+      xaxis=dict(showline=True, showgrid=True),
+      yaxis=dict(showline=True, showgrid=True),
+      bargap=0.2, # Optional: Adjusts the gap between bars
+      bargroupgap=0.1, # Optional: Adjusts the gap between groups
+      )
 
-        fig_Tachogram = go.Figure(data=go.Scatter(x=n, y=bpm_rr, mode='lines'))
-        fig_Tachogram.update_layout(
-            title="TACHOGRAM",
-            xaxis_title="n",
-            yaxis_title="BPM",
-            xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True)
-        )
-        st.plotly_chart(fig_Tachogram)
-
-        fig_histogram = go.Figure(data=go.Histogram(x=bpm_rr, nbinsx=ptp))
-
-        fig_histogram.update_layout(
-            title="Histogram Interval RR",
-            xaxis_title="Interval RR",
-            yaxis_title="Banyak Data",
-            xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True),
-            bargap=0.2,  # Optional: Adjusts the gap between bars
-            bargroupgap=0.1,  # Optional: Adjusts the gap between groups
-        )
-
-        st.plotly_chart(fig_histogram)
-    elif sub_selected == 'Frequency Domain analysis':
-        
-        bpm_rr_baseline = bpm_rr - 70
-        # Plotting dengan Plotly
-        n = np.arange(0, ptp, 1, dtype=int)
-        fig = go.Figure(data=go.Scatter(x=n, y=bpm_rr_baseline, mode='lines'))
-        fig.update_layout(
-        title="TACHOGRAM",
-        xaxis_title="n",
-        yaxis_title="BPM",
-        xaxis=dict(showline=True, showgrid=True),
-        yaxis=dict(showline=True, showgrid=True)
-        )
-        st.plotly_chart(fig)
-
+    st.plotly_chart(fig_histogram)
 
 
     
 
 
          
-
-        
-
-
-
-
-
-
-
-     
