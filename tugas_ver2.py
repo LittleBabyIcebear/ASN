@@ -523,7 +523,7 @@ if selected == "HRV Analysis":
         xaxis=dict(showline=True, showgrid=True),
         yaxis=dict(showline=True, showgrid=True)
         )
-        st.plotly_chart(fig)
+        st.plotly_chart(fig_fft)
 
 
         
