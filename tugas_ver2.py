@@ -284,7 +284,19 @@ half_point_total = len(FFT_FREQ_TOTAL) // 2
 fft_freq_total = FFT_FREQ_TOTAL[:half_point_total]
 fft_result_total = FFT_TOTAL[:half_point_total]
 
+# Fungsi untuk interpolasi manual
+def manual_interpolation(x, xp, fp):
+    return np.interp(x, xp, fp)
 
+# Frequency bands
+x_vlf = np.linspace(0.003, 0.04, 99)
+x_lf = np.linspace(0.04, 0.15, 99)
+x_hf = np.linspace(0.15, 0.4, 99)
+
+
+y_vlf = manual_interpolation(x_vlf, fft_freq_total, np.abs(fft_result_total))
+y_lf = manual_interpolation(x_lf, fft_freq_total, np.abs(fft_result_total))
+y_hf = manual_interpolation(x_hf, fft_freq_total, np.abs(fft_result_total))
 
 
 
@@ -768,7 +780,8 @@ if selected == "HRV Analysis":
         yaxis=dict(showline=True, showgrid=True)
         )
         st.plotly_chart(fig_fft)
-        # Membuat grafik FFT
+        
+        # Membuat Total grafik FFT
         fig_fft = go.Figure(data=go.Scatter(x=fft_freq_total, y=np.abs(fft_result_total), mode='lines'))
         fig_fft.update_layout(
         title="FFT tOTAL Of TACHOGRAM",
@@ -777,7 +790,7 @@ if selected == "HRV Analysis":
         xaxis=dict(showline=True, showgrid=True),
         yaxis=dict(showline=True, showgrid=True)
         )
-        fig_fft.show()
+        st.plotly_chart(fig_fft)
 
 
  
