@@ -973,8 +973,12 @@ if selected == "HRV Analysis":
 # Mark category on the heatmap
         coord = coordinates.get(category, None)
         if coord:
-            fig.add_shape(type="circle", xref="x", yref="y", x0=coord[1], y0=coord[0], x1=coord[1]+1, y1=coord[0]+1, line_color="black")
-
+           fig.add_trace(go.Scatter(
+           x=[coord[1] + 0.5],
+           y=[coord[0] + 0.5],
+           mode='markers',
+           marker=dict(color='black', size=12, symbol='circle')
+    ))
 # Add annotations for numbers
         annotations = []
         for i, row in enumerate(data):
