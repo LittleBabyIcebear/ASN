@@ -967,27 +967,32 @@ if selected == "HRV Analysis":
             9: (0, 2)
           }
 
-# Create heatmap with Plotly Express
         fig = px.imshow(data, labels=dict(x="Sympathetic Level", y="Parasympathetic Level"), x=["Low", "Normal", "High"], y=["High", "Normal", "Low"])
 
 # Mark category on the heatmap
         coord = coordinates.get(category, None)
         if coord:
-            fig.add_shape(type="circle", xref="x", yref="y", x0=coord[1], y0=coord[0], x1=coord[1]+1, y1=coord[0]+1, line_color="black")
+            fig.add_trace(go.Scatter(
+            x=[coord[1] + 0.5],
+            y=[coord[0] + 0.5],
+            mode='markers',
+            marker=dict(color='black', size=10),
+            showlegend=False
+    ))
 
 # Add annotations for numbers
         annotations = []
         for i, row in enumerate(data):
             for j, val in enumerate(row):
                 annotations.append(dict(
-                    x=j, y=i, text=str(val), showarrow=False,
-                    font=dict(color="black", size=16)
-                ))
+                x=j, y=i, text=str(val), showarrow=False,
+                font=dict(color="black", size=16)
+        ))
 
         fig.update_layout(
-            title="Autonomic Balance Diagram",
-            annotations=annotations
-        )
+        title="Autonomic Balance Diagram",
+        annotations=annotations
+)
         fig.update_xaxes(ticks="outside", tickvals=[0, 1, 2])
         fig.update_yaxes(ticks="outside", tickvals=[0, 1, 2])
 
