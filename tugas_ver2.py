@@ -967,13 +967,6 @@ if selected == "HRV Analysis":
             9: (0, 2)
           }
 
-        # Coordinates for categories (example)
-        coordinates = {
-        "example_category": (1, 1)  # Example coordinate (row, column)
-        }
-
-        # Selected category
-        category = "example_category"
 
 # Create heatmap with Plotly Express
         fig = px.imshow(data, labels=dict(x="Sympathetic Level", y="Parasympathetic Level"), x=["Low", "Normal", "High"], y=["High", "Normal", "Low"])
