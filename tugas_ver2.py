@@ -168,7 +168,7 @@ n = np. arange(0,ptp,1,dtype=int)
 
 
 with st.sidebar:
-    selected = option_menu("TUGAS 1", ["Home","Ecyclopedia", "Data & Graphic", "Filter","Method","Calculation"], default_index=0)
+    selected = option_menu("TUGAS 1", ["Home","Ecyclopedia", "Data & Graphic", "Filter","Method","Calculation","HRV Analysis"], default_index=0)
 
 if selected == "Home":
    st.title('Project ASN Kelompok 1')
@@ -358,6 +358,65 @@ if selected == "Calculation":
       )
 
     st.plotly_chart(fig_histogram)
+if selected == "HRV Analysis":
+    sub_selected = st.sidebar.radio(
+        "Pilih Metode HRV Analysis",
+        ["Time Domain Analysis", "Frequency Domain analysis", "Non Liniear analysis "],
+        index=0
+    )
+
+    if sub_selected == 'Time Domain Analysis':
+        new_title = '<p style="font-family:Georgia; color:black; font-size: 25px; text-align: center;">Time Domain Analysis</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        optimizer_options1 = ['','SDNN', 'RMSSD', "pNN50", "SDSD"]
+        selected_optimizer1 = st.selectbox('Time-domain analysis', optimizer_options1)
+
+        if selected_optimizer1 == 'SDNN':
+            st.write(SDNN)
+        elif selected_optimizer1 == 'RMSSD':
+            st.write(RMSSD)
+        elif selected_optimizer1 == 'pNN50':
+            st.write(pNN50)
+        elif selected_optimizer1 == 'SDSD':
+            st.write(SDSD)
+
+        fig_Tachogram = go.Figure(data=go.Scatter(x=n, y=bpm_rr, mode='lines'))
+        fig_Tachogram.update_layout(
+            title="TACHOGRAM",
+            xaxis_title="n",
+            yaxis_title="BPM",
+            xaxis=dict(showline=True, showgrid=True),
+            yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig_Tachogram)
+
+        fig_histogram = go.Figure(data=go.Histogram(x=bpm_rr, nbinsx=ptp))
+
+        fig_histogram.update_layout(
+            title="Histogram Interval RR",
+            xaxis_title="Interval RR",
+            yaxis_title="Banyak Data",
+            xaxis=dict(showline=True, showgrid=True),
+            yaxis=dict(showline=True, showgrid=True),
+            bargap=0.2,  # Optional: Adjusts the gap between bars
+            bargroupgap=0.1,  # Optional: Adjusts the gap between groups
+        )
+
+        st.plotly_chart(fig_histogram)
+    elif sub_selected == 'Frequency Domain analysis':
+        
+        bpm_rr_baseline = bpm_rr - 70
+        # Plotting dengan Plotly
+        n = np.arange(0, ptp, 1, dtype=int)
+        fig = go.Figure(data=go.Scatter(x=n, y=bpm_rr_baseline, mode='lines'))
+        fig.update_layout(
+        title="TACHOGRAM",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig)
 
 
     
