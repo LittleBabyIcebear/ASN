@@ -792,6 +792,61 @@ if selected == "HRV Analysis":
         )
         st.plotly_chart(fig_fft)
 
+        # Buat plot spektrum FFT
+        fig = go.Figure()
+
+        # Tambahkan garis spektrum FFT
+        fig.add_trace(go.Scatter(
+        x=fft_freq_total,
+        y=np.abs(fft_result_total),
+        mode='lines',
+        line=dict(color='black', width=0.3),
+        name='FFT Spectrum'
+        ))
+
+       # Isi antara pita frekuensi VLF
+       fig.add_trace(go.Scatter(
+       x=x_vlf,
+       y=y_vlf,
+       fill='tozeroy',
+       fillcolor='rgba(166, 81, 216, 0.2)',
+       line=dict(color='rgba(166, 81, 216, 0.5)'),
+       name='VLF'
+       ))
+
+      # Isi antara pita frekuensi LF
+      fig.add_trace(go.Scatter(
+      x=x_lf,
+      y=y_lf,
+      fill='tozeroy',
+      fillcolor='rgba(81, 166, 216, 0.2)',
+      line=dict(color='rgba(81, 166, 216, 0.5)'),
+      name='LF'
+      ))
+
+      # Isi antara pita frekuensi HF
+      fig.add_trace(go.Scatter(
+      x=x_hf,
+      y=y_hf,
+      fill='tozeroy',
+      fillcolor='rgba(216, 166, 81, 0.2)',
+      line=dict(color='rgba(216, 166, 81, 0.5)'),
+      name='HF'
+      ))
+
+      # Menambahkan judul dan label sumbu
+      fig.update_layout(
+      title="FFT Spectrum (Welch's periodogram)",
+      xaxis_title="Frequency (Hz)",
+      yaxis_title="Density",
+      xaxis=dict(range=[0, 0.5]),
+      yaxis=dict(range=[0, max(np.abs(fft_result_total))]),
+      legend=dict(x=0.8, y=0.95)
+      )
+      st.plotly_chart(fig)
+
+
+
 
  
 
