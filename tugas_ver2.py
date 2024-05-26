@@ -944,7 +944,7 @@ if selected == "HRV Analysis":
 
 # Mark the category on the heatmap
         if coord:
-        ax.plot(coord[1] + 0.5, coord[0] + 0.5, 'ko')  # 'ko' means black circle
+          ax.plot(coord[1] + 0.5, coord[0] + 0.5, 'ko')  # 'ko' means black circle
 
 # Set additional plot details
         ax.set_title("Autonomic Balance Diagram")
