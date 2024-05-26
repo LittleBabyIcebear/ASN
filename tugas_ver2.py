@@ -987,9 +987,9 @@ if selected == "HRV Analysis":
         annotations = []
         for i, row in enumerate(data):
             for j, val in enumerate(row):
-            annotations.append(dict(
-            x=j, y=i, text=str(val), showarrow=False,
-            font=dict(color="black", size=16)
+                annotations.append(dict(
+                x=j, y=i, text=str(val), showarrow=False,
+                font=dict(color="black", size=16)
         ))
 
         fig.update_layout(
