@@ -353,8 +353,10 @@ if selected == "Encyclopedia":
 if selected == "Misal":
     selected1 = option_menu(None, ["Information","Data & Graphic", "Filter","Method & Calculation"], 
     menu_icon="cast", default_index=0, orientation="horizontal")
-
-    if selected1 == 'Data & Graphic':
+    
+    if selected1 == 'Information':
+        st.title("d")
+    elif selected1 == 'Data & Graphic':
         st.title('Data & Graphic Input')
         st.header("Data Input")
         st.write(data)
