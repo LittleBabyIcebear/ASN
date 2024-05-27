@@ -666,7 +666,7 @@ if selected == "HRV Analysis":
                 yaxis=dict(showline=True, showgrid=True)
                 )
                 st.plotly_chart(fig_fft)
-            if selected_optimizer3 == 'Data 101-151'
+            if selected_optimizer3 == 'Data 101-151':
         
                 # Plotting dengan Plotly untuk subset data 101:151
                 fig = go.Figure(data=go.Scatter(x=n_subset2, y=bpm_rr_baseline_subset2, mode='lines'))
