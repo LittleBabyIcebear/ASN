@@ -351,12 +351,10 @@ if selected == "Encyclopedia":
     st.markdown(content, unsafe_allow_html=True)
     st.link_button("Go to video", "https://youtu.be/MUhtAXPvVnE?si=rvYo04B8FCIcPT3I")
 if selected == "Misal":
-    sub_selected1 = st.sidebar.radio(
-        "Pilih Metode HRV Analysis",
-        ["Data & Graphic", "Filter", "Method & Calculation"],
-        index=0
-    )
-    if sub_selected1 == 'Data & Graphic':
+    selected1 = option_menu(None, ["Information",Data & Graphic", "Filter","Method & Calculation"], 
+    menu_icon="cast", default_index=0, orientation="horizontal")
+
+    if selected1 == 'Data & Graphic':
         st.title('Data & Graphic Input')
         st.header("Data Input")
         st.write(data)
@@ -377,7 +375,7 @@ if selected == "Misal":
         new_title = '<p style="font-family:Georgia; color: black; font-size: 20px;">Jumlah Semua Data</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         st.write(jumlahdata)
-    elif sub_selected1 == 'Filter':
+    elif selected1 == 'Filter':
         st.header("LPF")
 
         fig_LPF = go.Figure(data=go.Scatter(x=x[0:2000], y=lpf_ecg[0:1000], mode='lines'))
@@ -401,7 +399,7 @@ if selected == "Misal":
             yaxis=dict(showline=True, showgrid=True)
          )
         st.plotly_chart(fig_HPF)
-    elif sub_selected1 == 'Method & Calculation':
+    elif selected1 == 'Method & Calculation':
             optimizer_options = ['', 'Derivative', 'Squaring', 'Moving Average', 'Thresholding','Calculation']
     selected_optimizer = st.selectbox('Method & Calculation', optimizer_options)
 
