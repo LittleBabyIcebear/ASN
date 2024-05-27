@@ -350,7 +350,7 @@ if selected == "Encyclopedia":
     # Display the HTML content
     st.markdown(content, unsafe_allow_html=True)
     st.link_button("Go to video", "https://youtu.be/MUhtAXPvVnE?si=rvYo04B8FCIcPT3I")
-    if sub_selected == 'Misal':
+if sub_selected == 'Misal':
         new_title = '<p style="font-family:Georgia; color:black; font-size: 25px; text-align: center;">Time Domain Analysis</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         selected2 = option_menu(None, ["Result", "Information"], 
