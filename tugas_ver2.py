@@ -351,12 +351,12 @@ if selected == "Encyclopedia":
     st.markdown(content, unsafe_allow_html=True)
     st.link_button("Go to video", "https://youtu.be/MUhtAXPvVnE?si=rvYo04B8FCIcPT3I")
 if selected == "Misal ":
-    sub_selected = st.sidebar.radio(
+    sub_selected1 = st.sidebar.radio(
         "Pilih Metode HRV Analysis",
         ["Data & Graphic", "Filter", "Method & Calculation"],
         index=0
     )
-    if sub_selected == 'Data & Graphic':
+    if sub_selected1 == 'Data & Graphic':
         st.title('Data & Graphic Input')
         st.header("Data Input")
         st.write(data)
@@ -377,7 +377,7 @@ if selected == "Misal ":
         new_title = '<p style="font-family:Georgia; color: black; font-size: 20px;">Jumlah Semua Data</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         st.write(jumlahdata)
-    elif sub_selected == 'Filter':
+    elif sub_selected1 == 'Filter':
         st.header("LPF")
 
         fig_LPF = go.Figure(data=go.Scatter(x=x[0:2000], y=lpf_ecg[0:1000], mode='lines'))
