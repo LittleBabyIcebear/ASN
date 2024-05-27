@@ -314,7 +314,7 @@ LF_HF = LF / HF
 
 
 with st.sidebar:
-    selected = option_menu("TUGAS 1", ["Home","Encyclopedia", "Data & Graphic", "Filter","Method & Calculation","HRV Analysis"], default_index=0)
+    selected = option_menu("TUGAS 1", ["Home","Encyclopedia", "Misal","HRV Analysis"], default_index=0)
 
 if selected == "Home":
    st.title('Project ASN Kelompok 1')
@@ -350,53 +350,62 @@ if selected == "Encyclopedia":
     # Display the HTML content
     st.markdown(content, unsafe_allow_html=True)
     st.link_button("Go to video", "https://youtu.be/MUhtAXPvVnE?si=rvYo04B8FCIcPT3I")
+if selected == "Misal ":
+    sub_selected = st.sidebar.radio(
+        "Pilih Metode HRV Analysis",
+        ["Data & Graphic", "Filter", "Method & Calculation"],
+        index=0
+    )
+    if sub_selected == 'Data & Graphic':
+        st.title('Data & Graphic Input')
+        st.header("Data Input")
+        st.write(data)
+
+        fig_data = go.Figure(data=go.Scatter(x=x[0:2000], y=y[0:2000], mode='lines'))
+        fig_data.update_layout(
+            title="Time Signal",
+            xaxis_title="Elapsed Time",
+            yaxis_title="Amplitude (mV)",
+            xaxis=dict(showline=True, showgrid=True),
+            yaxis=dict(showline=True, showgrid=True)
+        )    
+        st.header("Graphic Input")
+        st.plotly_chart(fig_data)
+        new_title = '<p style="font-family:Georgia; color: black; font-size: 20px;">Nilai FS</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        st.write(fs)
+        new_title = '<p style="font-family:Georgia; color: black; font-size: 20px;">Jumlah Semua Data</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        st.write(jumlahdata)
+    elif sub_selected == 'Filter':
+        st.header("LPF")
+
+        fig_LPF = go.Figure(data=go.Scatter(x=x[0:2000], y=lpf_ecg[0:1000], mode='lines'))
+        fig_LPF.update_layout(
+            title="LPF",
+            xaxis_title="Sequence (n)",
+            yaxis_title="Amplitude",
+            xaxis=dict(showline=True, showgrid=True),
+            yaxis=dict(showline=True, showgrid=True)
+
+         )
+         st.plotly_chart(fig_LPF)
+    
+         st.header("HPF")
+         fig_HPF = go.Figure(data=go.Scatter(x=x[0:2000], y=hpf_ecg[0:1000], mode='lines'))
+         fig_HPF.update_layout(
+            title="HPF",
+            xaxis_title="Sequence (n)",
+            yaxis_title="Amplitude",
+            xaxis=dict(showline=True, showgrid=True),
+            yaxis=dict(showline=True, showgrid=True)
+         )
+         st.plotly_chart(fig_HPF)
    
 
-if selected == "Data & Graphic":
-    st.title('Data & Graphic Input')
-    st.header("Data Input")
-    st.write(data)
-
-    fig_data = go.Figure(data=go.Scatter(x=x[0:2000], y=y[0:2000], mode='lines'))
-    fig_data.update_layout(
-        title="Time Signal",
-        xaxis_title="Elapsed Time",
-        yaxis_title="Amplitude (mV)",
-        xaxis=dict(showline=True, showgrid=True),
-        yaxis=dict(showline=True, showgrid=True)
-    )
-    st.header("Graphic Input")
-    st.plotly_chart(fig_data)
-    new_title = '<p style="font-family:Georgia; color: black; font-size: 20px;">Nilai FS</p>'
-    st.markdown(new_title, unsafe_allow_html=True)
-    st.write(fs)
-    new_title = '<p style="font-family:Georgia; color: black; font-size: 20px;">Jumlah Semua Data</p>'
-    st.markdown(new_title, unsafe_allow_html=True)
-    st.write(jumlahdata)
-if selected == "Filter":
-     st.header("LPF")
-
-     fig_LPF = go.Figure(data=go.Scatter(x=x[0:2000], y=lpf_ecg[0:1000], mode='lines'))
-     fig_LPF.update_layout(
-        title="LPF",
-        xaxis_title="Sequence (n)",
-        yaxis_title="Amplitude",
-        xaxis=dict(showline=True, showgrid=True),
-        yaxis=dict(showline=True, showgrid=True)
-
-     )
-     st.plotly_chart(fig_LPF)
     
-     st.header("HPF")
-     fig_HPF = go.Figure(data=go.Scatter(x=x[0:2000], y=hpf_ecg[0:1000], mode='lines'))
-     fig_HPF.update_layout(
-        title="HPF",
-        xaxis_title="Sequence (n)",
-        yaxis_title="Amplitude",
-        xaxis=dict(showline=True, showgrid=True),
-        yaxis=dict(showline=True, showgrid=True)
-     )
-     st.plotly_chart(fig_HPF)
+
+     
 if selected == "Method & Calculation":
     optimizer_options = ['', 'Derivative', 'Squaring', 'Moving Average', 'Thresholding','Calculation']
     selected_optimizer = st.selectbox('Method & Calculation', optimizer_options)
