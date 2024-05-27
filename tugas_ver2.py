@@ -599,7 +599,7 @@ if selected == "HRV Analysis":
             yaxis=dict(showline=True, showgrid=True)
             )
             st.plotly_chart(fig)
-        elif selected1 == 'Segmentation':
+        elif selected3 == 'Segmentation':
             optimizer_options3 = ['', 'Data 0-50', 'Data 50-100', 'Data 100-150', 'Data 150-200','Data 200-250','Data 250-300','Data 300-350','FFT TOTAL']
             selected_optimizer = st.selectbox('Method & Calculation', optimizer_options)
             if selected_optimizer3 == 'Data 0-50':
