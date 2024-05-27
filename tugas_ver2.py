@@ -601,7 +601,7 @@ if selected == "HRV Analysis":
             )
             st.plotly_chart(fig)
         elif selected1 == 'Segmentation':
-            optimizer_options3 = ['', 'Data 0-50', 'Data 50-100', 'Data 100-150', 'Data 150-200','Data 200-250','Data 250-300','Data 300-350]
+            optimizer_options3 = ['', 'Data 0-50', 'Data 50-100', 'Data 100-150', 'Data 150-200','Data 200-250','Data 250-300','Data 300-350']
             selected_optimizer = st.selectbox('Method & Calculation', optimizer_options)
             if selected_optimizer3 == 'Data 0-50':
                 fig = go.Figure(data=go.Scatter(x=n_subset, y=bpm_rr_baseline_subset, mode='lines'))
