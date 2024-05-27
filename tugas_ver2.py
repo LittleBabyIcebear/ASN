@@ -401,13 +401,8 @@ if selected == "Misal":
             yaxis=dict(showline=True, showgrid=True)
          )
         st.plotly_chart(fig_HPF)
-   
-
-    
-
-     
-if selected == "Method & Calculation":
-    optimizer_options = ['', 'Derivative', 'Squaring', 'Moving Average', 'Thresholding','Calculation']
+    elif sub_selected1 == 'Method & Calculation':
+            optimizer_options = ['', 'Derivative', 'Squaring', 'Moving Average', 'Thresholding','Calculation']
     selected_optimizer = st.selectbox('Method & Calculation', optimizer_options)
 
     if selected_optimizer == 'Derivative':
@@ -497,7 +492,7 @@ if selected == "Method & Calculation":
         )
 
     # Display the table
-        st.plotly_chart(fig)
+        st.plotly_chart(fig) 
 
 if selected == "HRV Analysis":
     sub_selected = st.sidebar.radio(
