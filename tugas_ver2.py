@@ -401,9 +401,9 @@ if selected == "Misal":
         st.plotly_chart(fig_HPF)
     elif selected1 == 'Method & Calculation':
             optimizer_options = ['', 'Derivative', 'Squaring', 'Moving Average', 'Thresholding','Calculation']
-    selected_optimizer = st.selectbox('Method & Calculation', optimizer_options)
+            selected_optimizer = st.selectbox('Method & Calculation', optimizer_options)
 
-    if selected_optimizer == 'Derivative':
+     if selected_optimizer == 'Derivative':
         fig_DRV = go.Figure(data=go.Scatter(x=x[9:1000], y=drv[0:1000], mode='lines'))
         fig_DRV.update_layout(
             title="DERIVATIVE",
@@ -414,7 +414,7 @@ if selected == "Misal":
         )
         st.header("DERIVATIVE")
         st.plotly_chart(fig_DRV)
-    elif selected_optimizer == 'Squaring':
+     elif selected_optimizer == 'Squaring':
         fig_sqr = go.Figure(data=go.Scatter(x=x[0:1000], y=sqr[0:1000], mode='lines'))
         fig_sqr.update_layout(
             title="SQUARING",
@@ -425,7 +425,7 @@ if selected == "Misal":
         )
         st.header("SQUARING")
         st.plotly_chart(fig_sqr)
-    elif selected_optimizer == 'Moving Average':
+     elif selected_optimizer == 'Moving Average':
         fig_mav = go.Figure(data=go.Scatter(x=x[0:1000], y=mav[0:1000], mode='lines'))
         fig_mav.update_layout(
             title="MAV",
