@@ -1018,9 +1018,6 @@ if selected == "HRV Analysis":
         def main():
             st.title('Poincaré Plot with Streamlit')
             
-            # Sample NNI data (replace this with your actual NNI data)
-            selisih = np.random.normal(1000, 100, 1000)
-        
             # Compute Poincaré plot
             results = compute_poincare(selisih)
         
