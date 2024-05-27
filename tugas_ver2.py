@@ -438,7 +438,7 @@ if selected == "Misal":
         )
         st.header("MAV")
         st.plotly_chart(fig_mav)
-    elif selected_optimizer == 'Thresholding':
+     elif selected_optimizer == 'Thresholding':
         fig = go.Figure(data=go.Scatter(x=x[0:4000], y=y[0:4000], mode='lines'))
         fig.update_layout(
             title="RAW SIGNAL",
@@ -459,7 +459,7 @@ if selected == "Misal":
             yaxis=dict(showline=True, showgrid=True)
         )
         st.plotly_chart(fig)
-    elif selected_optimizer == 'Calculation':
+     elif selected_optimizer == 'Calculation':
     # Define the data for the table
         data = {
             "Calculation of HR": ["NUMBERS OF R TO R CALCULATIONS", "CALCULATION OF THE AMOUNT OF R", "BPM CALCULATIONS"],
