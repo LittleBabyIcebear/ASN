@@ -164,8 +164,6 @@ for n in range (ptp):
 
 n = np. arange(0,ptp,1,dtype=int)
 
-
-
 def fourier_transform(signal):
     N = len(signal)
     fft_result = np.zeros(N, dtype=complex)
@@ -492,10 +490,6 @@ if selected == "Method & Calculation":
     # Display the table
         st.plotly_chart(fig)
 
-        
-
-
-
 if selected == "HRV Analysis":
     sub_selected = st.sidebar.radio(
         "Pilih Metode HRV Analysis",
@@ -518,7 +512,6 @@ if selected == "HRV Analysis":
             }
             df = pd.DataFrame(data)
 
-        # Buat tabel menggunakan Plotly
             fig = go.Figure(data=[go.Table(
             columnwidth=[80, 20],  # Set column width
             header=dict(values=list(df.columns),
@@ -535,14 +528,14 @@ if selected == "HRV Analysis":
                ),
             )])
 
-        # Set layout to adjust the table size
+       
             fig.update_layout(
              width=800,
             height=200,
             margin=dict(l=10, r=10, t=10, b=10)
             )
 
-        # Tampilkan tabel
+        
             st.plotly_chart(fig)
 
             fig_Tachogram = go.Figure(data=go.Scatter(x=n, y=bpm_rr, mode='lines'))
@@ -841,11 +834,9 @@ if selected == "HRV Analysis":
         )
         st.plotly_chart(fig_fft)
 
-        # Buat plot spektrum FFT
+       
         fig = go.Figure()
 
-
-       # Isi antara pita frekuensi VLF
         fig.add_trace(go.Scatter(
         x=x_vlf,
         y=y_vlf,
@@ -855,7 +846,7 @@ if selected == "HRV Analysis":
         name='VLF'
         ))
 
-      # Isi antara pita frekuensi LF
+      
         fig.add_trace(go.Scatter(
         x=x_lf,
         y=y_lf,
@@ -865,7 +856,7 @@ if selected == "HRV Analysis":
         name='LF'
         ))
 
-      # Isi antara pita frekuensi HF
+     
         fig.add_trace(go.Scatter(
         x=x_hf,
         y=y_hf,
@@ -875,7 +866,7 @@ if selected == "HRV Analysis":
         name='HF'
         ))
 
-      # Menambahkan judul dan label sumbu
+     
         fig.update_layout(
         title="FFT Spectrum (Welch's periodogram)",
         xaxis_title="Frequency (Hz)",
@@ -912,7 +903,7 @@ if selected == "HRV Analysis":
         marker_color=['blue', 'orange', 'green', 'red']
         ))
 
-        # Menambahkan judul dan label sumbu
+       
         fig.update_layout(
         title='Bar Series dari VLF, LF, HF',
         xaxis_title='Kategori',
@@ -942,13 +933,13 @@ if selected == "HRV Analysis":
             else:
                 return 0  # Undefined
 
-# Initialize Streamlit app
+
         st.title("Autonomic Balance Diagram")
 
         category = determine_category(LF_norm, HF_norm, LF_HF)
         st.write("Category:", category)
 
-# Define data and coordinates
+
         data = [
             [7, 8, 9],
             [4, 5, 6],
@@ -980,8 +971,8 @@ if selected == "HRV Analysis":
                  yref="y",
                  x0=coord[1],
                  y0=coord[0],
-                 x1=coord[1] + 0.5,  # Menambahkan nilai lebih kecil untuk memperkecil lingkaran
-                 y1=coord[0] + 0.5,  # Menambahkan nilai lebih kecil untuk memperkecil lingkaran
+                 x1=coord[1] + 0.5,  
+                 y1=coord[0] + 0.5,  
                 line_color="black"
             )
 
