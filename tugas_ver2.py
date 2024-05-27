@@ -314,7 +314,7 @@ LF_HF = LF / HF
 
 
 with st.sidebar:
-    selected = option_menu("TUGAS 1", ["Home","Encyclopedia", "Misal","HRV Analysis"], default_index=0)
+    selected = option_menu("TUGAS 1", ["Home","Encyclopedia", "Signal Processing","HRV Analysis"], default_index=0)
 
 if selected == "Home":
    st.title('Project ASN Kelompok 1')
