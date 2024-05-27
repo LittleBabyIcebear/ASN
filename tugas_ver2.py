@@ -400,8 +400,8 @@ if selected == "Misal":
          )
         st.plotly_chart(fig_HPF)
     elif selected1 == 'Method & Calculation':
-            optimizer_options = ['', 'Derivative', 'Squaring', 'Moving Average', 'Thresholding','Calculation']
-            selected_optimizer = st.selectbox('Method & Calculation', optimizer_options)
+     optimizer_options = ['', 'Derivative', 'Squaring', 'Moving Average', 'Thresholding','Calculation']
+     selected_optimizer = st.selectbox('Method & Calculation', optimizer_options)
 
      if selected_optimizer == 'Derivative':
         fig_DRV = go.Figure(data=go.Scatter(x=x[9:1000], y=drv[0:1000], mode='lines'))
