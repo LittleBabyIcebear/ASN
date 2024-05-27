@@ -1031,8 +1031,7 @@ if selected == "HRV Analysis":
             st.write("Poincaré Plot:")
             st.pyplot(results['scatter'])
         
-        if __name__ == "__main__":
-            main()
+
 
 
         
