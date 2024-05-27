@@ -1007,6 +1007,28 @@ if selected == "HRV Analysis":
     
     # Display heatmap in Streamlit
             st.plotly_chart(fig)
+    elif sub_selected == 'Non Linear  analysis':
+        # Title of the Streamlit app
+        st.title('Poincaré Plot HRV Analysis')
+
+# Input: NNI series
+        nni_input = st.text_area('Enter NNI series (comma-separated values)', '800, 850, 900, 950, 800, 750, 700, 650')
+
+# Convert the input string to a list of integers
+        try:
+            nni_series = list(map(int, nni_input.split(',')))
+        except ValueError:
+            st.error('Please enter a valid comma-separated list of integers.')
+
+# Compute Poincaré if the input is valid
+        if len(nni_series) > 0:
+            results = nl.poincare(nni=nni_series)
+
+            # Print SD1 and SD2
+            st.write('SD1:', results['sd1'])
+            st.write('SD2:', results['sd2'])
+        else:
+            st.warning('NNI series is required to compute Poincaré plot.')
 
 
         
