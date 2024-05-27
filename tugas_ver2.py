@@ -350,7 +350,103 @@ if selected == "Encyclopedia":
     # Display the HTML content
     st.markdown(content, unsafe_allow_html=True)
     st.link_button("Go to video", "https://youtu.be/MUhtAXPvVnE?si=rvYo04B8FCIcPT3I")
-if selected == "Misal ":
+    if sub_selected == 'Misal':
+        new_title = '<p style="font-family:Georgia; color:black; font-size: 25px; text-align: center;">Time Domain Analysis</p>'
+        st.markdown(new_title, unsafe_allow_html=True)
+        selected2 = option_menu(None, ["Result", "Information"], 
+            menu_icon="cast", default_index=0, orientation="horizontal")
+        if selected2 == "Result":
+
+            new_title = '<p style="font-family:Georgia; color: black; font-size: 18px;">Statistical measures</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            data = {
+            "Statistical measures": ["SDNN", "RMSSD", "pNN50","SDSD"],
+            "Hasil": [SDNN,RMSSD, pNN50, SDSD]
+            }
+            df = pd.DataFrame(data)
+
+            fig = go.Figure(data=[go.Table(
+            columnwidth=[80, 20],  # Set column width
+            header=dict(values=list(df.columns),
+                fill_color='red',  # Ubah warna header menjadi merah
+                align='left',
+                line_color='darkslategray',
+                height=30),  # Set header height
+            cells=dict(values=[df["Statistical measures"], df["Hasil"]],
+               fill_color='white',  # Ubah warna sel menjadi merah
+               align='left',
+               line_color='darkslategray',
+               height=25,  # Set cell height
+               font_size=12,  # Set font size
+               ),
+            )])
+
+       
+            fig.update_layout(
+             width=800,
+            height=200,
+            margin=dict(l=10, r=10, t=10, b=10)
+            )
+
+        
+            st.plotly_chart(fig)
+
+            fig_Tachogram = go.Figure(data=go.Scatter(x=n, y=bpm_rr, mode='lines'))
+            fig_Tachogram.update_layout(
+              title="TACHOGRAM",
+              xaxis_title="n",
+              yaxis_title="BPM",
+              xaxis=dict(showline=True, showgrid=True),
+              yaxis=dict(showline=True, showgrid=True)
+              )
+            st.plotly_chart(fig_Tachogram)
+
+            fig_histogram = go.Figure(data=go.Histogram(x=bpm_rr, nbinsx=ptp))
+
+            fig_histogram.update_layout(
+              title="Histogram Interval RR",
+              xaxis_title="Interval RR",
+              yaxis_title="Banyak Data",
+              xaxis=dict(showline=True, showgrid=True),
+              yaxis=dict(showline=True, showgrid=True),
+              bargap=0.2, # Optional: Adjusts the gap between bars
+              bargroupgap=0.1, # Optional: Adjusts the gap between groups
+              )
+            st.plotly_chart(fig_histogram)
+        if selected2 == "Information":
+            new_title = '<p style="font-family:Georgia; color:blue; font-size: 23px; text-align: left;">SDNN</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:black; font-size: 20px; text-align: justify;">SDNN adalah ukuran yang digunakan untuk mengukur variasi dalam interval RR. SDNN menghitung standar deviasi dari semua interval RR dalam suatu rekaman. SDNN digunakan sebagai indikator aktivitas sistem saraf otonom dan respons tubuh terhadap stres. SDNN juga digunakan untuk menganalisis bagaimana tubuh menanggapi stres dan bagaimana sistem saraf otonom bekerja untuk mengatur respons tubuh terhadap stres.</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:blue; font-size: 23px; text-align: left;">SDSD</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:black; font-size: 20px; text-align: Justify;">SDSD adalah ukuran yang digunakan untuk mengukur variasi dalam perbedaan antara interval RR yang berdekatan. SDSD menghitung standar deviasi dari perbedaan antara interval RR yang berdekatan. SDSD digunakan sebagai indikator aktivitas sistem saraf otonom dan respons tubuh terhadap stres. SDSD juga digunakan untuk menganalisis bagaimana tubuh menanggapi stres dan bagaimana sistem saraf otonom bekerja untuk mengatur respons tubuh terhadap stres.</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:blue; font-size: 23px; text-align: left;">RMSSD </p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:black; font-size: 20px; text-align: Justify;">RMSSD adalah ukuran statistik yang digunakan untuk mengukur variasi dalam interval RR. RMSSD menghitung perbedaan antara interval RR berurutan dan kemudian menghitung akar rata-rata kuadrat dari perbedaan tersebut. RMSSD digunakan sebagai indikator aktivitas sistem saraf otonom, khususnya cabang parasympathetic. RMSSD juga digunakan sebagai dasar untuk menghitung skor HRV, yang memberikan informasi tentang kemampuan tubuh dalam menanggapi stres.</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:blue; font-size: 23px; text-align: left;">PNN50</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+            new_title = '<p style="font-family:Georgia; color:black; font-size: 20px; text-align: Justify;">PNN50 adalah ukuran yang digunakan untuk mengukur persentase interval RR yang berbeda lebih dari 50 ms. PNN50 digunakan sebagai indikator aktivitas sistem saraf otonom, khususnya cabang parasympathetic. PNN50 juga digunakan sebagai indikator stres dan keseimbangan sistem saraf otonom. PNN50 dapat digunakan untuk menganalisis bagaimana tubuh menanggapi stres dan bagaimana sistem saraf otonom bekerja untuk mengatur respons tubuh terhadap stres.</p>'
+            st.markdown(new_title, unsafe_allow_html=True)
+
+   
+    
+    elif sub_selected == 'Frequency Domain analysis':
+        
+        # Plotting dengan Plotly
+        n = np.arange(0, ptp, 1, dtype=int)
+        fig = go.Figure(data=go.Scatter(x=n, y=bpm_rr_baseline, mode='lines'))
+        fig.update_layout(
+        title="TACHOGRAM",
+        xaxis_title="n",
+        yaxis_title="BPM",
+        xaxis=dict(showline=True, showgrid=True),
+        yaxis=dict(showline=True, showgrid=True)
+        )
+        st.plotly_chart(fig)
+if selected == "j":
     sub_selected1 = st.sidebar.radio(
         "Pilih Metode HRV Analysis",
         ["Data & Graphic", "Filter", "Method & Calculation"],
