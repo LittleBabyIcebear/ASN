@@ -389,18 +389,18 @@ if selected == "Misal ":
             yaxis=dict(showline=True, showgrid=True)
 
          )
-         st.plotly_chart(fig_LPF)
+        st.plotly_chart(fig_LPF)
     
-         st.header("HPF")
-         fig_HPF = go.Figure(data=go.Scatter(x=x[0:2000], y=hpf_ecg[0:1000], mode='lines'))
-         fig_HPF.update_layout(
+        st.header("HPF")
+        fig_HPF = go.Figure(data=go.Scatter(x=x[0:2000], y=hpf_ecg[0:1000], mode='lines'))
+        fig_HPF.update_layout(
             title="HPF",
             xaxis_title="Sequence (n)",
             yaxis_title="Amplitude",
             xaxis=dict(showline=True, showgrid=True),
             yaxis=dict(showline=True, showgrid=True)
          )
-         st.plotly_chart(fig_HPF)
+        st.plotly_chart(fig_HPF)
    
 
     
