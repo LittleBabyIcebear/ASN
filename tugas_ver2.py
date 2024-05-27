@@ -585,7 +585,6 @@ if selected == "HRV Analysis":
    
     
     elif sub_selected == 'Frequency Domain analysis':
-        st.markdown(new_title, unsafe_allow_html=True)
         selected3 = option_menu(None, ["Baseline", "Segmentation"], 
             menu_icon="cast", default_index=0, orientation="horizontal")
         if selected3 == "Baseline":
