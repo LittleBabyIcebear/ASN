@@ -471,12 +471,12 @@ if selected == "Method & Calculation":
             header=dict(values=list(df.columns),
                     fill_color='red',  # Change header color to red
                     align='left',
-                    line_color='darkslategray',
+                    line_color='black',
                     height=30),  # Set header height
         cells=dict(values=[df["Calculation of HR"], df["Hasil"]],
                    fill_color='white',  # Change cell color to white
                    align='left',
-                   line_color='darkslategray',
+                   line_color='black',
                    height=25,  # Set cell height
                    font_size=12,  # Set font size
                    ),
