@@ -585,7 +585,7 @@ if selected == "HRV Analysis":
    
     
     elif sub_selected == 'Frequency Domain analysis':
-        selected3 = option_menu(None, ["Baseline", "Segmentation"], 
+        selected3 = option_menu(None, ["Baseline", "Segmentation","Spektrum"], 
             menu_icon="cast", default_index=0, orientation="horizontal")
         if selected3 == "Baseline":
              # Plotting dengan Plotly
@@ -845,8 +845,8 @@ if selected == "HRV Analysis":
                 yaxis=dict(showline=True, showgrid=True)
                 )
                 st.plotly_chart(fig_fft)
-
-       
+                
+       if selected3 == "Spektrum":
         fig = go.Figure()
 
         fig.add_trace(go.Scatter(
