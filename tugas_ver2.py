@@ -1008,7 +1008,7 @@ if selected == "HRV Analysis":
     
     # Display heatmap in Streamlit
             st.plotly_chart(fig)
-    elif sub_selected == 'Non Linear analysis':
+    elif sub_selected == 'Non Liniear analysis':
         # Function to compute Poincaré plot
         def compute_poincare(nni):
             results = nl.poincare(nni=nni)
