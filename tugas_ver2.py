@@ -1029,7 +1029,11 @@ if selected == "HRV Analysis":
             st.write("Poincaré Plot:")
             st.pyplot(results['scatter']
 if selected == "DWT":
-        
+        sub_selected1 = st.sidebar.radio(
+        "Pilih Metode DWT",
+        ["Filter Coef", "Mallat", "Filter Bank "],
+        index=0
+    )
 
 
 
