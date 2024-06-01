@@ -362,17 +362,22 @@ if selected == "Signal Processing":
         st.header("Data Input")
         st.write(data)
 
-        fig_data = go.Figure(data=go.Scatter(x=x[0:2000], y=y[0:2000], mode='lines'))
-        fig_data.update_layout(
-            title="Time Signal",
+        # Create the figure with Plotly
+        fig = go.Figure(data=go.Scatter(x=x[0:2000], y=y[0:2000], mode='lines'))
+        fig.update_layout(
+            title="Original Signal",
             xaxis_title="Elapsed Time",
             yaxis_title="Amplitude (mV)",
             xaxis=dict(showline=True, showgrid=True),
             yaxis=dict(showline=True, showgrid=True),
             template='plotly_dark'
-        )    
+        )
+        
+        # Display the figure in Streamlit
         st.header("Graphic Input")
-        st.plotly_chart(fig_data)
+        st.plotly_chart(fig) 
+        
+        
         new_title = '<p style="font-family:Georgia; color: black; font-size: 20px;">Nilai FS</p>'
         st.markdown(new_title, unsafe_allow_html=True)
         st.write(fs)
