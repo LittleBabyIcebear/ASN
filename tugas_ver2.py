@@ -315,7 +315,7 @@ LF_HF = LF / HF
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] {
-    background-color: #D8BFD8;
+    background-color: blue;
 }
 
 </style>
@@ -378,7 +378,7 @@ if selected == "Signal Processing":
             yaxis_title="Amplitude (mV)",
             xaxis=dict(showline=True, showgrid=True),
             yaxis=dict(showline=True, showgrid=True),
-            template='ggplot2'
+            
         )
         
         # Display the figure in Streamlit
