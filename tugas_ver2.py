@@ -1008,26 +1008,7 @@ if selected == "HRV Analysis":
     
     # Display heatmap in Streamlit
             st.plotly_chart(fig)
-    elif sub_selected == 'Non Liniear analysis':
-        # Function to compute Poincaré plot
-        def compute_poincare(nni):
-            results = nl.poincare(nni=nni)
-            return results
-        
-        # Main function to run the Streamlit app
-        def main():
-            st.title('Poincaré Plot with Streamlit')
-            
-            # Compute Poincaré plot
-            results = compute_poincare(selisih)
-        
-            # Display SD1 and SD2
-            st.write(f"SD1: {results['sd1']}")
-            st.write(f"SD2: {results['sd2']}")
-        
-            # Plot Poincaré
-            st.write("Poincaré Plot:")
-            st.pyplot(results['scatter']
+    
 if selected == "DWT":
         sub_selected1 = st.sidebar.radio(
         "Pilih Metode DWT",
