@@ -315,7 +315,7 @@ LF_HF = LF / HF
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] {
-    background-color: purple;
+    background-color: beige;
 }
 
 </style>
