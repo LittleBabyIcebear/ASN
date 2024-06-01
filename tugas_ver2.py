@@ -368,7 +368,8 @@ if selected == "Signal Processing":
             xaxis_title="Elapsed Time",
             yaxis_title="Amplitude (mV)",
             xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True)
+            yaxis=dict(showline=True, showgrid=True),
+            template='plotly_dark'
         )    
         st.header("Graphic Input")
         st.plotly_chart(fig_data)
@@ -387,7 +388,8 @@ if selected == "Signal Processing":
             xaxis_title="Sequence (n)",
             yaxis_title="Amplitude",
             xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True)
+            yaxis=dict(showline=True, showgrid=True),
+            template='plotly_dark'
 
          )
         st.plotly_chart(fig_LPF)
@@ -399,7 +401,8 @@ if selected == "Signal Processing":
             xaxis_title="Sequence (n)",
             yaxis_title="Amplitude",
             xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True)
+            yaxis=dict(showline=True, showgrid=True),
+            template='plotly_dark'
          )
         st.plotly_chart(fig_HPF)
     elif selected1 == 'Method & Calculation':
@@ -413,7 +416,8 @@ if selected == "Signal Processing":
             xaxis_title="Sequence (n)",
             yaxis_title="Amplitude",
             xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True)
+            yaxis=dict(showline=True, showgrid=True),
+            template='plotly_dark'
         )
         st.header("DERIVATIVE")
         st.plotly_chart(fig_DRV)
@@ -424,7 +428,8 @@ if selected == "Signal Processing":
             xaxis_title="Sequence (n)",
             yaxis_title="Amplitude",
             xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True)
+            yaxis=dict(showline=True, showgrid=True),
+            template='plotly_dark'
         )
         st.header("SQUARING")
         st.plotly_chart(fig_sqr)
@@ -435,7 +440,8 @@ if selected == "Signal Processing":
             xaxis_title="Time",
             yaxis_title="Amplitude",
             xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True)
+            yaxis=dict(showline=True, showgrid=True),
+            template='plotly_dark'
         )
         st.header("MAV")
         st.plotly_chart(fig_mav)
@@ -446,7 +452,8 @@ if selected == "Signal Processing":
             xaxis_title="Elapsed Time",
             yaxis_title="Amplitude (mV)",
             xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True)
+            yaxis=dict(showline=True, showgrid=True),
+            template='plotly_dark'
         )
         st.subheader("THRESHOLDING")
         st.plotly_chart(fig)
@@ -457,7 +464,8 @@ if selected == "Signal Processing":
             xaxis_title="Time",
             yaxis_title="Amplitude",
             xaxis=dict(showline=True, showgrid=True),
-            yaxis=dict(showline=True, showgrid=True)
+            yaxis=dict(showline=True, showgrid=True),
+            template='plotly_dark'
         )
         st.plotly_chart(fig)
      elif selected_optimizer == 'Calculation':
@@ -549,7 +557,8 @@ if selected == "HRV Analysis":
               xaxis_title="n",
               yaxis_title="BPM",
               xaxis=dict(showline=True, showgrid=True),
-              yaxis=dict(showline=True, showgrid=True)
+              yaxis=dict(showline=True, showgrid=True),
+              template='plotly_dark'
               )
             st.plotly_chart(fig_Tachogram)
 
@@ -561,8 +570,9 @@ if selected == "HRV Analysis":
               yaxis_title="Banyak Data",
               xaxis=dict(showline=True, showgrid=True),
               yaxis=dict(showline=True, showgrid=True),
-              bargap=0.2, # Optional: Adjusts the gap between bars
-              bargroupgap=0.1, # Optional: Adjusts the gap between groups
+              bargap=0.2, 
+              bargroupgap=0.1, 
+              template='plotly_dark'
               )
             st.plotly_chart(fig_histogram)
         if selected2 == "Information":
